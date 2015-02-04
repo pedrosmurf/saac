@@ -1,12 +1,12 @@
 jQuery(function(){
 	var kind = jQuery("#kind").val()
-	jQuery.getJSON("http://localhost:9000/request/list/by/kind/"+kind, function(activities) {
+	jQuery.getJSON("http://saac.herokuapp.com/request/list/by/kind/"+kind, function(activities) {
 		addActivities(activities)
 	})
 })
 jQuery("#kind").change(function(){
 	var kind = jQuery(this).val()
-	jQuery.getJSON("http://localhost:9000/request/list/by/kind/"+kind, function(activities) {
+	jQuery.getJSON("http://saac.herokuapp.com/request/list/by/kind/"+kind, function(activities) {
 		addActivities(activities)
 	})
 })
