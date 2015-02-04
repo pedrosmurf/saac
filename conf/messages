@@ -1,0 +1,100 @@
+application.name = Saac
+
+enrollment = Matrícula
+password = Senha
+login = Login
+home = Home
+logout = Logout
+save = Salvar
+document = Documento
+request = Solicitação
+status = Estado
+name = Nome
+actions = Ações
+credits = Créditos
+student = Aluno
+value.under = Carga horária deve ser inferior a 
+
+
+
+
+#Actions
+
+view = Visualizar
+edit = Editar
+cancel = Cancelar
+correct = Corrigir
+submit = Submiter
+reject = Rejeitar
+evaluat = Avaliar
+complet = Concluir
+print = Imprimir
+store = Armazenar
+
+
+kind = Natureza
+activity = Atividade 
+event = Evento 
+description = Descrição
+participation = Participação 
+institution = Instituição
+period = Período
+workload = Carga Horária 
+validWorkload = Carga Horária Aproveitada
+comment = Comentário
+
+
+#Kind
+
+teaching = Ensino
+research = Pesquisa e Produção Científica
+general = Geral
+extension = Extensão
+sport = Esportiva
+cultural = Cultural
+
+#Activity
+
+foreign_language_course = Cursos de língua estrangeira
+computer_course = Curso de informática
+complement_course = Cursos de complementação de conteúdos das disciplinas do curso
+science_research = Iniciação científica
+research_project = Pesquisa em projetos do curso
+study_group = Participação em grupo de estudo
+univerty_week_presentation = Apresentação de trabalhos na Semana Universitária
+congress_presentation = Apresentação de trabalhos em congressos, simpósios, encontros nacionais
+academic_award = Prêmio acadêmico, artístico ou cultural
+publication = Trabalhos completos publicados em anais
+publication_isbn = Publicação de livros de divulgação científica com ISBN
+publication_isbn_chapter = Publicação de capítulo de livros com ISBN
+publication_book = Publicação de livros na área de conhecimento do Curso
+publication_abstract_local = Publicação de Resumos em Congressos Científicos locais
+publication_abstract_region = Publicação de Resumos em Congressos Científicos regionais
+publication_abstract_nation = Publicação de Resumos em Congressos Científicos nacionais
+publication_abstract_international = Publicação de Resumos em Congressos Científicos internacionais
+publication_magazine_local = Publicação de Artigos em revistas locais com corpo editorial
+publication_magazine_nation = Publicação de Artigos em revistas nacionais com corpo editorial
+publication_magazine_international = Publicação de Artigos em revistas internacionais com corpo editorial 
+publication_magazine_specific = Publicação de Artigos de divulgação científica, tecnológica e artística em revista especializada
+publication_paper = Publicação de Artigos de divulgação científica, tecnológica e artística em jornais
+pet = Participação em Programa de Educação Tutorial
+tutoring = Participação em Programas de Monitoria Acadêmica
+event_participation = Participação em eventos
+lab_internship = Estágios em laboratórios de ensino e de pesquisa
+event_planning = Participação em comissões organizadoras de eventos acadêmicos, artísticos e culturais
+class_planning = Produção de material didático com orientação de Professores
+school_participation = Participação como representante estudantil nos Colegiados
+community_participation = Participação em Projetos ou Programas registrados na Pró-Reitoria de Extensão
+
+
+
+#Status
+
+void = Inválida
+created = Criada
+rejected = Indeferida
+corrected = Corrigida
+evaluated = Avaliada
+completed = Finalizada
+canceled = Cancelada
+submitted = Submetida

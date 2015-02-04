@@ -1,0 +1,110 @@
+@(createForm:Form[(Option[Long], String, String, String, String, String, String, Long)],kinds:List[Kind])(implicit flash:Flash, session:Session)
+
+@main("request") {
+
+	@helper.form(action = routes.StudentController.update) {
+	    <input type="hidden" value="@createForm("id").value" name="id">
+	    @**
+	    <div class="row">
+	    	<div class="col-md-12">
+	    		<div class="form-group">
+    				<label for="document">@Messages("document")</label>
+	    			<input type="file" name="document" id="document">
+    			</div>
+	    	</div>
+	    </div>
+	    
+	    <div class="row">
+	    	<div class="col-md-6">
+	    		<div class="form-group">
+    				<label for="kind">@Messages("kind")</label>
+					<select class="form-control" name="kind" id="kind">
+						@for(kind <-kinds){
+							<option value="@kind.value" @if(createForm("activity").value.get == kind.value.toLowerCase){selected}>@Messages(kind.value)</option>
+						}
+					</select>
+    			</div>
+	    	</div>
+	    </div>
+	    **@
+	    <div class="row">
+	    	<div class="col-md-6">
+	    		<div class="form-group">
+    				<label for="activity">@Messages("activity")</label>
+    				<input type="text" class="form-control" value="@Messages(createForm("activity").value.get)" readonly>
+					<input type="hidden" name="activity" id="activity" value="@createForm("activity").value.get" readonly>
+    			</div>
+	    	</div>
+	    </div>
+	    
+	    
+	    <div class="row">
+	    	<div class="col-md-6">
+				<div class="form-group">
+					<label for="event">@Messages("event")</label>
+					<input type="text" class="form-control" id="event" name="event" value="@createForm("event").value">
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+	    	<div class="col-md-6">
+				<div class="form-group">
+					<label for="description">@Messages("description")</label>
+					<textarea class="form-control" rows="3" name="description" id="description">@createForm("description").value</textarea>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		<div class="row">
+	    	<div class="col-md-6">
+				<div class="form-group">
+					<label for="participation">@Messages("participation")</label>
+					<input type="text" class="form-control" id="participation" name="participation" value="@createForm("participation").value">
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+	    	<div class="col-md-6">
+				<div class="form-group">
+					<label for="institution">@Messages("institution")</label>
+					<input type="text" class="form-control" id="institution" name="institution" value="@createForm("institution").value">
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+	    	<div class="col-md-6">
+				<div class="form-group">
+					<label for="period">@Messages("period")</label>
+					<input type="text" class="form-control" id="period" name="period" value="@createForm("period").value">
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+	    	<div class="col-md-6">
+				<div class="form-group" id="workloadDiv">
+					<label class="control-label" for="workload">@Messages("workload")</label> 
+					<input type="text" class="form-control" id="workload" name="workload" aria-describedby="workloadStatus">
+					<div id="xworkload" class="hide">
+						<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+	  					<span id="workloadStatus" class="sr-only">(error)</span>
+  					</div>
+					<div id="errorMessageWorkload" class="hide"><label class="control-label">@Messages("value.under") <span id="maxWorkload"></span></label></div>
+				</div>
+			</div>
+		</div>
+		
+		
+	    <div class="row">
+	    	<div class="col-md-12">
+        		<input type="submit" class="btn btn-primary" value="@Messages("save")">
+	    	</div>
+	    </div>
+	}
+
+}

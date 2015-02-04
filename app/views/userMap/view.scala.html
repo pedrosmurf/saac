@@ -1,0 +1,49 @@
+@(userMap:models.UserMap)(implicit flash:Flash, session:Session)
+
+@validActions(request:models.Request) ={
+	@defining(session.get("Role").getOrElse("student")) { currentRole =>
+		@if(currentRole == Teacher.value){
+			<a href="@routes.StudentController.view(request.id.getOrElse(0L))" title="@Messages("view")"><span class="glyphicon glyphicon-eye-open"></span></a>
+			
+			@if(request.status == Submitted || request.status == Corrected){
+				<a href="@routes.TeacherController.evaluat(request.id.getOrElse(0L))" title="@Messages("evaluat")"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+			
+				<a href="@routes.TeacherController.reject(request.id.getOrElse(0L))" title="@Messages("reject")"><span class="glyphicon glyphicon-thumbs-down"></span></a>
+			}
+			
+			@if(request.status != Canceled){
+				<a href="#" title="@Messages("cancel")"><span class="glyphicon glyphicon-remove"></span></a>
+			}
+		}
+	}
+}
+
+@main("userMap") {
+		<div class="row">
+				<div class="col-md-12">
+					<table class="table table-striped table-bordered">
+						<thead>
+							<td>@Messages("kind")</td>
+							<td>@Messages("activity")</td>
+							<td>@Messages("workload")</td>
+							<td>@Messages("status")</td>
+							<td>@Messages("actions")</td>
+						</thead>
+						<tbody>
+							@for(request <- userMap.requests){
+								<tr>
+									<td>@Messages(request.activity.kind.value)</td>
+									<td>@Messages(request.activity.value)</td>
+									<td>@request.workload</td>
+									<td>@Messages(request.status.value)</td>
+									<td>
+										@validActions(request)
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+}

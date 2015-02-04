@@ -1,0 +1,36 @@
+@(userMapList:List[UserMap])(implicit flash:Flash, session:Session)
+
+@main("home"){
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-striped table-bordered">
+				<thead>
+					<td>@Messages("student")</td>
+					<td>@Messages("enrollment")</td>
+					<td>@Messages("workload")</td>
+					<td>@Messages("validWorkload")</td>
+					<td>@Messages("actions")</td>
+				</thead>
+				<tbody>
+					@for(userMap <- userMapList.filter(_.status != MapCompleted)){
+						<tr>
+							<td>@userMap.user.name</td>
+							<td>@userMap.user.enrollment</td>
+							<td>@(userMap.workload /UserMap.hourToCredit)</td>
+							<td>@(userMap.validWorkload /UserMap.hourToCredit)</td>
+							<td>
+								<a href="@routes.TeacherController.view(userMap.id.getOrElse(0L))" title="@Messages("view")"><span class="glyphicon glyphicon-eye-open"></span></a>
+								@if(userMap.validWorkload /UserMap.hourToCredit > UserMap.creditToSubmit){
+									<a href="@routes.TeacherController.print(userMap.id.getOrElse(0L))" title="@Messages("print")"><span class="glyphicon glyphicon-print"></span></a>
+									<a href="@routes.TeacherController.store(userMap.id.getOrElse(0L))" title="@Messages("store")"><span class="glyphicon glyphicon-briefcase"></span></a>
+								}
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	
+}

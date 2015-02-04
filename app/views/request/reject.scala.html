@@ -1,0 +1,24 @@
+@(rejectForm:Form[(Option[Long], String)])(implicit flash:Flash, session:Session)
+
+@main("request") {
+
+	@helper.form(action = routes.TeacherController.doReject) {
+		<input type="hidden" value="@rejectForm("id").value" name="id">
+		
+		<div class="row">
+	    	<div class="col-md-6">
+				<div class="form-group">
+					<label for="comment">@Messages("comment")</label>
+					<textarea class="form-control" rows="3" name="comment" id="comment"></textarea>
+				</div>
+			</div>
+		</div>
+	    
+	    <div class="row">
+	    	<div class="col-md-12">
+        		<input type="submit" class="btn btn-primary" value="@Messages("save")">
+	    	</div>
+	    </div>
+	}
+
+}
