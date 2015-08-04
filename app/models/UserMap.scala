@@ -47,7 +47,7 @@ class UserMaps(tag: Tag) extends Table[UserMapTable](tag, "user_maps") {
   def validWorkload = column[Long]("valid_workload")
   def status = column[String]("status")
 
-  def user = foreignKey("user_fk", userEnrollment, Users.users)(_.enrollment)
+  def user = foreignKey("user_fk", userEnrollment, Users.users)(_.enrollment, onDelete = ForeignKeyAction.Cascade)
 
   def * = (id.?, userEnrollment, active, workload, validWorkload, status) <> ((UserMapTable.apply _).tupled, UserMapTable.unapply)
 }
@@ -62,10 +62,23 @@ object UserMaps {
         for (s <- userMaps.ddl.createStatements.toList) yield (println(s))
     }
   }
-  def insert(userMap: UserMap): Int = {
+  def create(userMap: UserMap): Boolean = {
     DB.connection.withSession {
       implicit session =>
-        userMaps.+=(toTable(userMap))
+        userMaps.+=(toTable(userMap)) match {
+          case 1 => true
+          case _ => false
+        }
+    }
+  }
+
+  def removeByUser(user: User): Boolean = {
+    DB.connection.withSession {
+      implicit session =>
+        (for (um <- userMaps.filter(_.userEnrollment === user.enrollment)) yield (um)).delete match {
+          case 1 => true
+          case _ => false
+        }
     }
   }
 
@@ -81,7 +94,7 @@ object UserMaps {
       implicit session =>
         val query = (for (um <- userMaps.filter(_.userEnrollment === enrollment)) yield (um)).firstOption
         query match {
-          case None => None
+          case None     => None
           case Some(um) => Some(um.toEntity)
         }
     }
@@ -96,7 +109,7 @@ object UserMaps {
             val newWorkload = userMap.toEntity.requests.map(_.workload).fold(0L)((acc, x) => acc + x)
             query.update(userMap.copy(workload = newWorkload)) match {
               case 1L => true
-              case _ => false
+              case _  => false
             }
         }
     }
@@ -112,7 +125,7 @@ object UserMaps {
             val newValidWorkload = userMap.toEntity.requests.map(_.validWorkload).fold(0L)((acc, x) => acc + x)
             query.update(userMap.copy(validWorkload = newValidWorkload)) match {
               case 1L => true
-              case _ => false
+              case _  => false
             }
         }
     }
@@ -152,7 +165,7 @@ object UserMaps {
         val query = (for (um <- userMaps.filter(_.id === userMap.id)) yield (um))
         query.update(toTable(userMap)) match {
           case 1L => true
-          case _ => false
+          case _  => false
         }
     }
   }

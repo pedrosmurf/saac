@@ -31,6 +31,10 @@
 						@if(currentRole == Student.value){
 							<li class="@("active".when(context == "request"))"><a href="@routes.StudentController.create">@Messages("request")</a></li>
 						}
+						@if(currentRole == Admin.value){
+							<li class="@("active".when(context == "student"))"><a href="@routes.AdminController.createStudent">@Messages("student")</a></li>
+							<li class="@("active".when(context == "teacher"))"><a href="@routes.AdminController.createTeacher">@Messages("teacher")</a></li>
+						}
 					}
 					<li><a href="@routes.ApplicationController.logout">@Messages("logout")</a></li>
 				</ul>

@@ -12,7 +12,15 @@ GET    /logout                       controllers.ApplicationController.logout
 GET    /user/login                   controllers.ApplicationController.login
 POST   /user/authenticate            controllers.ApplicationController.authenticate
 
+#Admin
 
+GET    /admin/list                   controllers.AdminController.listAll
+GET    /admin/create/student         controllers.AdminController.createStudent
+GET    /admin/create/teacher         controllers.AdminController.createTeacher
+GET    /admin/edit/:enrollment       controllers.AdminController.edit(enrollment:String)
+GET    /admin/remove/:enrollment     controllers.AdminController.remove(enrollment:String)
+POST   /admin/create/save            controllers.AdminController.save
+POST   /admin/update                 controllers.AdminController.update
 
 #Teacher
 

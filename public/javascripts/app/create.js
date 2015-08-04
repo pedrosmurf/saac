@@ -1,12 +1,19 @@
+var url = '';
+
 jQuery(function(){
 	var kind = jQuery("#kind").val()
-	jQuery.getJSON("http://saac.herokuapp.com/request/list/by/kind/"+kind, function(activities) {
+	
+	var protocol = window.location.href.split('/')[0]
+	var site = window.location.href.split('/')[2]
+	url = protocol + '//' + site
+	
+	jQuery.getJSON(url+"/request/list/by/kind/"+kind, function(activities) {
 		addActivities(activities)
 	})
 })
 jQuery("#kind").change(function(){
 	var kind = jQuery(this).val()
-	jQuery.getJSON("http://saac.herokuapp.com/request/list/by/kind/"+kind, function(activities) {
+	jQuery.getJSON(url+"/request/list/by/kind/"+kind, function(activities) {
 		addActivities(activities)
 	})
 })

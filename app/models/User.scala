@@ -31,13 +31,6 @@ object Users {
     }
   }
 
-  def insert(user: User): Int = {
-    DB.connection.withSession {
-      implicit session =>
-        users.+=(toTable(user))
-    }
-  }
-
   def authenticate(user: User): Option[User] = {
     DB.connection.withSession {
       implicit session =>
@@ -59,6 +52,60 @@ object Users {
           case Some(userTable) =>
             Some(userTable.toEntity)
         }
+    }
+  }
+
+  def save(user: User): Boolean = {
+    DB.connection.withSession {
+      implicit session =>
+        user.role match {
+          case Teacher =>
+            val userTable = toTable(user)
+            users.+=(userTable) match {
+              case 1 => true
+              case _ => false
+            }
+          case Student =>
+            val userTable = toTable(user)
+            users.+=(userTable) match {
+              case 1 =>
+                UserMaps.create(UserMap(None, user, true, Nil, 0, 0, MapCreated))
+                true
+              case _ => false
+            }
+          case _ =>
+            false
+        }
+    }
+  }
+
+  def update(user: User): Boolean = {
+    DB.connection.withSession {
+      implicit session =>
+        val updateUser = toTable(user)
+        val query = for (u <- users.filter(_.enrollment === updateUser.enrollment)) yield (u)
+        query.update(updateUser) match {
+          case 1 => true
+          case _ => false
+        }
+    }
+  }
+
+  def remove(enrollment: String): Boolean = {
+    DB.connection.withSession {
+      implicit session =>
+        (for (u <- users.filter(_.enrollment === enrollment)) yield (u))delete match {
+          case 1 => true
+          case _ => false
+        }
+    }
+  }
+
+  def listAll: List[User] = {
+    DB.connection.withSession {
+      implicit session =>
+        val query = (for (u <- users) yield (u)).list
+        query.map(_.toEntity)
     }
   }
 

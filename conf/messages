@@ -13,8 +13,10 @@ name = Nome
 actions = Ações
 credits = Créditos
 student = Aluno
+teacher = Professor
 value.under = Carga horária deve ser inferior a 
-
+no = Não
+yes = Sim
 
 
 

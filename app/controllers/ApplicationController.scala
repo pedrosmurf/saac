@@ -28,7 +28,7 @@ object ApplicationController extends SaacController {
         case Teacher=>
           Redirect(routes.TeacherController.list).flashing(request.flash)
         case Admin =>
-          Redirect(routes.StudentController.listAll).flashing(request.flash)
+          Redirect(routes.AdminController.listAll).flashing(request.flash)
         case Student =>
           Redirect(routes.StudentController.listByStudent).flashing(request.flash)
       }

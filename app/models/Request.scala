@@ -70,8 +70,8 @@ class Requests(tag: Tag) extends Table[RequestTable](tag, "requests") {
   def comment = column[String]("comment")
   def userMapId = column[Long]("user_map_id")
 
-  def user = foreignKey("user_fk", userEnrollment, Users.users)(_.enrollment)
-  def userMap = foreignKey("userMap_fk", userMapId, UserMaps.userMaps)(_.id)
+  def user = foreignKey("user_fk", userEnrollment, Users.users)(_.enrollment, onDelete = ForeignKeyAction.Cascade)
+  def userMap = foreignKey("userMap_fk", userMapId, UserMaps.userMaps)(_.id, onDelete = ForeignKeyAction.Cascade)
 
   def * = (id.?, status, userEnrollment, activity, event, description, participation, institution, period, workload, validWorkload, document, comment, userMapId) <> ((RequestTable.apply _).tupled, RequestTable.unapply)
 }

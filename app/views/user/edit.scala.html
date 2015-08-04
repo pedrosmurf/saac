@@ -1,0 +1,42 @@
+@(createForm:Form[(String,String,String,String)])(implicit flash:Flash, session:Session)
+
+@main(createForm("role").value.getOrElse("home")){
+
+	@helper.form(action = routes.AdminController.update) {
+		<input type="hidden" value="@createForm("role").value" name="role">
+		
+		<div class="row">
+	    	<div class="col-md-6">
+				<div class="form-group">
+					<label for="enrollment">@Messages("enrollment")</label>
+					<input type="text" class="form-control" value="@createForm("enrollment").value" id="enrollment" name="enrollment" readonly>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+	    	<div class="col-md-6">
+				<div class="form-group">
+					<label for="name">@Messages("name")</label>
+					<input type="text" class="form-control" value="@createForm("name").value" id="name" name="name">
+				</div>
+			</div>
+		</div>		
+		
+		<div class="row">
+	    	<div class="col-md-6">
+				<div class="form-group">
+					<label for="password">@Messages("password")</label>
+					<input type="password" class="form-control" value="@createForm("password").value" id="password" name="password">
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+	    	<div class="col-md-12">
+        		<input id="submit" type="submit" class="btn btn-primary" value="@Messages("save")">
+	    	</div>
+	    </div>
+	}	
+	
+}
