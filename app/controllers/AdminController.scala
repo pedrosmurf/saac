@@ -81,6 +81,13 @@ object AdminController extends SaacController {
         },
         form => {
           if (Users.save(User(form._1, form._3, form._2, Role(form._4)))) {
+            val user = Users.findByEnrollment(form._1)
+            user.role match{
+              case Student =>
+                val dir = new File(s"files/${user.enrollment}")
+                dir.mkdir
+              case _ => //do nothing
+            }
             Redirect(routes.ApplicationController.index).flashing("message" -> "save.success", "type" -> "success")
           } else {
             Redirect(routes.ApplicationController.index).flashing("message" -> "save.error", "type" -> "error")
