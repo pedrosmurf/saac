@@ -9,8 +9,9 @@
 			<a href="@routes.StudentController.view(request.id.getOrElse(0L))" title="@Messages("view")"><span class="glyphicon glyphicon-eye-open"></span></a>
 			
 			@if(request.status == Rejected){
-				<a href="@routes.StudentController.correct(request.id.getOrElse(0L))" title="@Messages("correct")"><span class="glyphicon glyphicon-repeat"></span></a>
+				<a href="@routes.StudentController.correct(request.id.getOrElse(0L))" title="@Messages("correct")"><span class="glyphicon glyphicon-repeat" disabled></span></a>
 			}
+			
 			@if(request.status != Canceled){
 				<a href="#" title="@Messages("cancel")"><span class="glyphicon glyphicon-remove"></span></a>
 			}
@@ -22,6 +23,11 @@
 @main("home"){
 	@if(userMapOpt.isDefined){
 		@defining(userMapOpt.get) { userMap =>
+			<div class="row">
+				<div class="col-md-12">
+					<h3>@Messages("creditByKind")</h3>
+				</div>
+			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<table class="table table-striped table-bordered">
@@ -43,7 +49,11 @@
 						</tbody>
 					</table>
 				
-				
+				<div class="row">
+					<div class="col-md-12">
+						<h3>@Messages("totalCredit")</h3>
+					</div>
+				</div>
 				<table class="table table-striped table-bordered">
 					<thead>
 						<td>@Messages("validWorkload")</td>
@@ -70,6 +80,11 @@
 		}
 	}
 
+	<div class="row">
+		<div class="col-md-12">
+			<h3>@Messages("requests")</h3>
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-md-12">
 			<table class="table table-striped table-bordered">

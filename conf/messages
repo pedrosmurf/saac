@@ -8,15 +8,22 @@ logout = Logout
 save = Salvar
 document = Documento
 request = Solicitação
+requests = Solicitações
 status = Estado
 name = Nome
 actions = Ações
 credits = Créditos
 student = Aluno
+students = Alunos
 teacher = Professor
+teachers = Professores
+create = Cadastrar 
 value.under = Carga horária deve ser inferior a 
 no = Não
 yes = Sim
+creditByKind = Créditos por natureza
+totalCredit = Total de créditos
+userMap = Mapa de solicitações 
 
 
 
