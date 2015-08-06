@@ -2,7 +2,7 @@
 
 @main(userType.value){
 
-	@helper.form(action = routes.AdminController.save) {
+	@helper.form(action = routes.AdminController.save, 'id -> "createUserForm") {
 		<input type="hidden" value="@userType.value" name="role">
 		
 		<div class="row">
@@ -44,5 +44,5 @@
 	    	</div>
 	    </div>
 	}	
-	
+	<script src="@routes.Assets.at("javascripts/app/user/create.js")" type="text/javascript"></script>
 }

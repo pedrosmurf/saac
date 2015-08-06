@@ -22,7 +22,7 @@
 							<td>@user.name</td>
 							<td>@user.enrollment</td>
 							<td>
-								<a href="@routes.AdminController.edit(user.enrollment)" title="@Messages("edit")"><span class="glyphicon glyphicon-edit"></span></a>
+								<!-- <a href="@routes.AdminController.edit(user.enrollment)" title="@Messages("edit")"><span class="glyphicon glyphicon-edit"></span></a> -->
 								<a href="#" title="@Messages("remove")" data-toggle="modal" data-target="#removeModal" data-enrollment="@user.enrollment"><span class="glyphicon glyphicon-ban-circle"></span></a>
 							</td>
 						</tr>
@@ -51,7 +51,7 @@
 							<td>@user.name</td>
 							<td>@user.enrollment</td>
 							<td>
-								<a href="@routes.AdminController.edit(user.enrollment)" title="@Messages("edit")"><span class="glyphicon glyphicon-edit"></span></a>
+								<!-- <a href="@routes.AdminController.edit(user.enrollment)" title="@Messages("edit")"><span class="glyphicon glyphicon-edit"></span></a> -->
 								<a href="#" title="@Messages("remove")" data-toggle="modal" data-target="#removeModal" data-enrollment="@user.enrollment"><span class="glyphicon glyphicon-ban-circle"></span></a>
 							</td>
 						</tr>
@@ -77,5 +77,5 @@
 	  </div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 	
-	<script src="@routes.Assets.at("javascripts/app/remove_user_modal.js")" type="text/javascript"></script>
+	<script src="@routes.Assets.at("javascripts/app/user/remove.js")" type="text/javascript"></script>
 }
