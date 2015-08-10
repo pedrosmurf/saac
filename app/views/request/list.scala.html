@@ -23,92 +23,99 @@
 @main("home"){
 	@if(userMapOpt.isDefined){
 		@defining(userMapOpt.get) { userMap =>
-			<div class="row">
-				<div class="col-md-12">
-					<h3>@Messages("creditByKind")</h3>
+			<div class="whitePanel">
+				<div class="row">
+					<div class="col-md-12">
+						<h3>@Messages("creditByKind")</h3>
+					</div>
 				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<table class="table table-striped table-bordered">
+							<thead>
+								<td>@Messages("kind")</td>
+								<td>@Messages("credits")</td>
+								<td>@Messages("validWorkload")</td>
+								<td>@Messages("workload")</td>
+							</thead>
+							<tbody>
+								@for((kind,requests) <- userMap.requests.groupBy(_.activity.kind)){
+									<tr>
+										<td>@Messages(kind.value)</td>
+										<td>@(requests.map(_.workload.toInt).foldLeft(0)((i,acc)=> i +acc)/UserMap.hourToCredit)</td>
+										<td>@(requests.map(_.validWorkload.toInt).foldLeft(0)((i,acc)=> i +acc)/UserMap.hourToCredit)</td>
+										<td>@requests.map(_.workload.toInt).foldLeft(0)((i,acc)=> i +acc)</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>		
 			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<table class="table table-striped table-bordered">
-						<thead>
-							<td>@Messages("kind")</td>
-							<td>@Messages("credits")</td>
-							<td>@Messages("validWorkload")</td>
-							<td>@Messages("workload")</td>
-						</thead>
-						<tbody>
-							@for((kind,requests) <- userMap.requests.groupBy(_.activity.kind)){
-								<tr>
-									<td>@Messages(kind.value)</td>
-									<td>@(requests.map(_.workload.toInt).foldLeft(0)((i,acc)=> i +acc)/UserMap.hourToCredit)</td>
-									<td>@(requests.map(_.validWorkload.toInt).foldLeft(0)((i,acc)=> i +acc)/UserMap.hourToCredit)</td>
-									<td>@requests.map(_.workload.toInt).foldLeft(0)((i,acc)=> i +acc)</td>
-								</tr>
-							}
-						</tbody>
-					</table>
 				
+			<div class="whitePanel">
 				<div class="row">
 					<div class="col-md-12">
 						<h3>@Messages("totalCredit")</h3>
 					</div>
 				</div>
-				<table class="table table-striped table-bordered">
-					<thead>
-						<td>@Messages("validWorkload")</td>
-						<td>@Messages("workload")</td>
-						<td>@Messages("actions")</td>
-					</thead>
-					<tbody>
-						<tr>
-							<td>@(userMap.validWorkload/UserMap.hourToCredit)</td>
-							<td>@(userMap.workload/UserMap.hourToCredit)</td>
-							<td>
-								@if((userMap.workload/UserMap.hourToCredit > UserMap.creditToSubmit) && (userMap.status == MapCreated )){
-									<a href="@routes.StudentController.submit(userMap.id.getOrElse(0L))" title="@Messages("submit")"><span class="glyphicon glyphicon-eject"></span></a>
-								}
-							</td>
-						</tr>
-					</tbody>
-				</table>
-					
-				
-				
+				<div class="row">
+					<div class="col-md-12">
+						<table class="table table-striped table-bordered">
+							<thead>
+								<td>@Messages("validWorkload")</td>
+								<td>@Messages("workload")</td>
+								<td>@Messages("actions")</td>
+							</thead>
+							<tbody>
+								<tr>
+									<td>@(userMap.validWorkload/UserMap.hourToCredit)</td>
+									<td>@(userMap.workload/UserMap.hourToCredit)</td>
+									<td>
+										@if((userMap.workload/UserMap.hourToCredit > UserMap.creditToSubmit) && (userMap.status == MapCreated )){
+											<a href="@routes.StudentController.submit(userMap.id.getOrElse(0L))" title="@Messages("submit")"><span class="glyphicon glyphicon-eject"></span></a>
+										}
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		}
 	}
 
-	<div class="row">
-		<div class="col-md-12">
-			<h3>@Messages("requests")</h3>
+	<div class="whitePanel">
+		<div class="row">
+			<div class="col-md-12">
+				<h3>@Messages("requests")</h3>
+			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<table class="table table-striped table-bordered">
-				<thead>
-					<td>@Messages("event")</td>
-					<td>@Messages("status")</td>
-					<td>@Messages("kind")</td>
-					<td>@Messages("activity")</td>
-					<td>@Messages("actions")</td>
-				</thead>
-				<tbody>
-					@for(request <- requests){
-						<tr>
-							<td>@request.event</td>
-							<td>@Messages(request.status.value)</td>
-							<td>@Messages(request.activity.kind.value)</td>
-							<td>@Messages(request.activity.value)</td>
-							<td>
-								@validActions(request)
-							</td>
-						</tr>
-					}
-				</tbody>
-			</table>
+		<div class="row">
+			<div class="col-md-12">
+				<table class="table table-striped table-bordered">
+					<thead>
+						<td>@Messages("event")</td>
+						<td>@Messages("status")</td>
+						<td>@Messages("kind")</td>
+						<td>@Messages("activity")</td>
+						<td>@Messages("actions")</td>
+					</thead>
+					<tbody>
+						@for(request <- requests){
+							<tr>
+								<td>@request.event</td>
+								<td>@Messages(request.status.value)</td>
+								<td>@Messages(request.activity.kind.value)</td>
+								<td>@Messages(request.activity.value)</td>
+								<td>
+									@validActions(request)
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 	

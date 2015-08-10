@@ -1,1 +1,67 @@
-body {margin:10px!important}
+body {
+	background-color: #f0f0f0 !important;
+}
+
+.loginForm {
+	margin-top: 20% !important;
+}
+
+.mainStrip {
+	background-color: #fff !important;
+	box-shadow: 0px 10px 10px #888, 0px -10px 10px #888;
+	padding: 10px 0px;
+	margin-top: 50px;
+}
+
+.whitePanel {
+	background-color: #fff !important;
+	box-shadow: 5px 5px 2px #888888;
+	padding: 20px 30px;
+	margin: 40px 0px;
+}
+
+.flashMessage{
+	margin-top:40px;
+}
+
+.menu {
+	margin-left: 20px;
+	padding:0px!important;
+}
+
+a.menuItem:link {
+    text-decoration: none;
+    color:#231e5e;
+}
+
+a.menuItem:visited {
+    text-decoration: none;
+    color:#231e5e;
+}
+
+a.menuItem:hover {
+    text-decoration: none;
+    color:#231e5e;
+}
+
+a.menuItem {
+	margin: 10px 0px;
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	padding: 10px 0px;
+	color:#231e5e;
+}
+
+
+a.active{
+	background-color: #231e5e;
+	color: #fff!important;
+	box-shadow: 0px 4px 2px #888888;
+}
+
+.imageUece {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}

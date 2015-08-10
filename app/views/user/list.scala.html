@@ -3,61 +3,65 @@
 @main("home"){
 
 	
-	<div class="row">
-		<div class="col-md-12">
-			<h3>@Messages("teachers")</h3>
+	<div class="whitePanel">
+		<div class="row">
+			<div class="col-md-12">
+				<h3>@Messages("teachers")</h3>
+			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<table class="table table-striped table-bordered">
-				<thead>
-					<td>@Messages("name")</td>
-					<td>@Messages("enrollment")</td>
-					<td>@Messages("actions")</td>
-				</thead>
-				<tbody>
-					@for(user <- users.filter(_.role == Teacher)){
-						<tr>
-							<td>@user.name</td>
-							<td>@user.enrollment</td>
-							<td>
-								<!-- <a href="@routes.AdminController.edit(user.enrollment)" title="@Messages("edit")"><span class="glyphicon glyphicon-edit"></span></a> -->
-								<a href="#" title="@Messages("remove")" data-toggle="modal" data-target="#removeModal" data-enrollment="@user.enrollment"><span class="glyphicon glyphicon-ban-circle"></span></a>
-							</td>
-						</tr>
-					}
-				</tbody>
-			</table>
+		<div class="row">
+			<div class="col-md-12">
+				<table class="table table-striped table-bordered">
+					<thead>
+						<td>@Messages("name")</td>
+						<td>@Messages("enrollment")</td>
+						<td>@Messages("actions")</td>
+					</thead>
+					<tbody>
+						@for(user <- users.filter(_.role == Teacher)){
+							<tr>
+								<td>@user.name</td>
+								<td>@user.enrollment</td>
+								<td>
+									<!-- <a href="@routes.AdminController.edit(user.enrollment)" title="@Messages("edit")"><span class="glyphicon glyphicon-edit"></span></a> -->
+									<a href="#" title="@Messages("remove")" data-toggle="modal" data-target="#removeModal" data-enrollment="@user.enrollment"><span class="glyphicon glyphicon-ban-circle"></span></a>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 	
-	<div class="row">
-		<div class="col-md-12">
-			<h3>@Messages("students")</h3>
+	<div class="whitePanel">
+		<div class="row">
+			<div class="col-md-12">
+				<h3>@Messages("students")</h3>
+			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<table class="table table-striped table-bordered">
-				<thead>
-					<td>@Messages("name")</td>
-					<td>@Messages("enrollment")</td>
-					<td>@Messages("actions")</td>
-				</thead>
-				<tbody>
-					@for(user <- users.filter(_.role == Student)){
-						<tr>
-							<td>@user.name</td>
-							<td>@user.enrollment</td>
-							<td>
-								<!-- <a href="@routes.AdminController.edit(user.enrollment)" title="@Messages("edit")"><span class="glyphicon glyphicon-edit"></span></a> -->
-								<a href="#" title="@Messages("remove")" data-toggle="modal" data-target="#removeModal" data-enrollment="@user.enrollment"><span class="glyphicon glyphicon-ban-circle"></span></a>
-							</td>
-						</tr>
-					}
-				</tbody>
-			</table>
+		<div class="row">
+			<div class="col-md-12">
+				<table class="table table-striped table-bordered">
+					<thead>
+						<td>@Messages("name")</td>
+						<td>@Messages("enrollment")</td>
+						<td>@Messages("actions")</td>
+					</thead>
+					<tbody>
+						@for(user <- users.filter(_.role == Student)){
+							<tr>
+								<td>@user.name</td>
+								<td>@user.enrollment</td>
+								<td>
+									<!-- <a href="@routes.AdminController.edit(user.enrollment)" title="@Messages("edit")"><span class="glyphicon glyphicon-edit"></span></a> -->
+									<a href="#" title="@Messages("remove")" data-toggle="modal" data-target="#removeModal" data-enrollment="@user.enrollment"><span class="glyphicon glyphicon-ban-circle"></span></a>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 	

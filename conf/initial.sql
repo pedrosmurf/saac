@@ -7,7 +7,7 @@ alter table "requests" add constraint "user_fk" foreign key("user_enrollment") r
 alter table "user_maps" add constraint "user_fk" foreign key("user_enrollment") references "users"("enrollment") on update NO ACTION on delete CASCADE;
 
 
-insert into "users" ("enrollment","password","name","role")  values ('admin','admin','Administrador','admin');
+insert into "users" ("enrollment","password","name","role")  values ('admin','21232f297a57a5a743894a0e4a801fc3','Administrador','admin');
 
 
 GRANT ALL ON users TO saac;

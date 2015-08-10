@@ -25,6 +25,10 @@ creditByKind = Créditos por natureza
 totalCredit = Total de créditos
 userMap = Mapa de solicitações 
 
+save.success = Salvo com sucesso
+save.error = Erro ao salvar
+required.field = Campo obrigatório
+
 
 
 #Actions
