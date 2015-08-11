@@ -6,6 +6,7 @@ login = Login
 home = Home
 logout = Logout
 save = Salvar
+remove = Apagar
 document = Documento
 request = Solicitação
 requests = Solicitações
@@ -27,6 +28,7 @@ userMap = Mapa de solicitações
 
 save.success = Salvo com sucesso
 save.error = Erro ao salvar
+remove.success = Removido com sucesso
 required.field = Campo obrigatório
 
 

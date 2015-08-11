@@ -26,11 +26,9 @@
 								<td>@(userMap.workload /UserMap.hourToCredit)</td>
 								<td>@(userMap.validWorkload /UserMap.hourToCredit)</td>
 								<td>
-									<a href="@routes.TeacherController.view(userMap.id.getOrElse(0L))" title="@Messages("view")"><span class="glyphicon glyphicon-eye-open"></span></a>
-									@if(userMap.validWorkload /UserMap.hourToCredit > UserMap.creditToSubmit){
-										<a href="@routes.TeacherController.print(userMap.id.getOrElse(0L))" title="@Messages("print")"><span class="glyphicon glyphicon-print"></span></a>
-										<a href="@routes.TeacherController.store(userMap.id.getOrElse(0L))" title="@Messages("store")"><span class="glyphicon glyphicon-briefcase"></span></a>
-									}
+									<a href="@routes.TeacherController.view(userMap.id.getOrElse(0L))" data-tooltip="@Messages("view")"><span class="glyphicon glyphicon-eye-open"></span></a>
+									<a href="@routes.TeacherController.print(userMap.id.getOrElse(0L))" data-tooltip="@Messages("print")" class="@if(!(userMap.validWorkload /UserMap.hourToCredit > UserMap.creditToSubmit)){not-active}"><span class="glyphicon glyphicon-print"></span></a>
+									<a href="@routes.TeacherController.store(userMap.id.getOrElse(0L))" data-tooltip="@Messages("store")" class="@if(!(userMap.validWorkload /UserMap.hourToCredit > UserMap.creditToSubmit)){not-active}"><span class="glyphicon glyphicon-briefcase"></span></a>
 								</td>
 							</tr>
 						}

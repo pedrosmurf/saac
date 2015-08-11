@@ -3,17 +3,12 @@
 @validActions(request:models.Request) ={
 	@defining(session.get("Role").getOrElse("student")) { currentRole =>
 		@if(currentRole == Teacher.value){
-			<a href="@routes.StudentController.view(request.id.getOrElse(0L))" title="@Messages("view")"><span class="glyphicon glyphicon-eye-open"></span></a>
+			<a href="@routes.StudentController.view(request.id.getOrElse(0L))" data-tooltip="@Messages("view")"><span class="glyphicon glyphicon-eye-open"></span></a>
 			
-			@if(request.status == Submitted || request.status == Corrected){
-				<a href="@routes.TeacherController.evaluat(request.id.getOrElse(0L))" title="@Messages("evaluat")"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+			<a href="@routes.TeacherController.evaluat(request.id.getOrElse(0L),userMap.id.getOrElse(0L))" data-tooltip="@Messages("evaluat")" class="@if(!(request.status == Submitted || request.status == Corrected)){not-active}"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+			<a href="@routes.TeacherController.reject(request.id.getOrElse(0L))" data-tooltip="@Messages("reject")" class="@if(!(request.status == Submitted || request.status == Corrected)){not-active}"><span class="glyphicon glyphicon-thumbs-down"></span></a>
 			
-				<a href="@routes.TeacherController.reject(request.id.getOrElse(0L))" title="@Messages("reject")"><span class="glyphicon glyphicon-thumbs-down"></span></a>
-			}
-			
-			@if(request.status != Canceled){
-				<a href="#" title="@Messages("cancel")"><span class="glyphicon glyphicon-remove"></span></a>
-			}
+			<a href="#" data-tooltip="@Messages("cancel")"><span class="glyphicon glyphicon-remove"></span></a>
 		}
 	}
 }

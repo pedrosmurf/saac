@@ -3,18 +3,10 @@
 @validActions(request:models.Request) ={
 	@defining(session.get("Role").getOrElse("student")) { currentRole =>
 		@if(currentRole == Student.value){
-			@if(request.status == Rejected || request.status == Created){
-				<a href="@routes.StudentController.edit(request.id.getOrElse(0L))" title="@Messages("edit")"><span class="glyphicon glyphicon-edit"></span></a>
-			}
-			<a href="@routes.StudentController.view(request.id.getOrElse(0L))" title="@Messages("view")"><span class="glyphicon glyphicon-eye-open"></span></a>
-			
-			@if(request.status == Rejected){
-				<a href="@routes.StudentController.correct(request.id.getOrElse(0L))" title="@Messages("correct")"><span class="glyphicon glyphicon-repeat" disabled></span></a>
-			}
-			
-			@if(request.status != Canceled){
-				<a href="#" title="@Messages("cancel")"><span class="glyphicon glyphicon-remove"></span></a>
-			}
+			<a href="@routes.StudentController.edit(request.id.getOrElse(0L))" data-tooltip="@Messages("edit")" class="@if(!(request.status == Rejected || request.status == Created)){not-active}"><span class="glyphicon glyphicon-edit"></span></a>
+			<a href="@routes.StudentController.view(request.id.getOrElse(0L))" data-tooltip="@Messages("view")"><span class="glyphicon glyphicon-eye-open"></span></a>
+			<a href="@routes.StudentController.correct(request.id.getOrElse(0L))" data-tooltip="@Messages("correct")" class="@if(request.status != Rejected){not-active}"><span class="glyphicon glyphicon-repeat" disabled></span></a>
+			<a href="#" data-tooltip="@Messages("cancel")"><span class="glyphicon glyphicon-remove"></span></a>
 		}
 	}
 }
@@ -72,9 +64,8 @@
 									<td>@(userMap.validWorkload/UserMap.hourToCredit)</td>
 									<td>@(userMap.workload/UserMap.hourToCredit)</td>
 									<td>
-										@if((userMap.workload/UserMap.hourToCredit > UserMap.creditToSubmit) && (userMap.status == MapCreated )){
-											<a href="@routes.StudentController.submit(userMap.id.getOrElse(0L))" title="@Messages("submit")"><span class="glyphicon glyphicon-eject"></span></a>
-										}
+										
+										<a href="@routes.StudentController.submit(userMap.id.getOrElse(0L))" data-tooltip="@Messages("submit")" class="@if(!((userMap.workload/UserMap.hourToCredit > UserMap.creditToSubmit) && (userMap.status == MapCreated ))){not-active}"><span class="glyphicon glyphicon-eject"></span></a>
 									</td>
 								</tr>
 							</tbody>

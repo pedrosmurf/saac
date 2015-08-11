@@ -32,10 +32,10 @@ object TeacherController extends SaacController {
       Ok(views.html.userMap.view(userMap))
   }
 
-  def evaluat(id: Long) = Authenticated {
+  def evaluat(id: Long, userMapId: Long) = Authenticated {
     implicit request =>
       if (Requests.evaluat(id)) {
-        Redirect(routes.ApplicationController.index).flashing("message" -> "save.success", "type" -> "success")
+        Redirect(routes.TeacherController.view(userMapId)).flashing("message" -> "save.success", "type" -> "success")
       } else {
         Redirect(routes.ApplicationController.index).flashing("message" -> "save.error", "type" -> "error")
       }

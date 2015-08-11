@@ -2,23 +2,31 @@
 
 @main("request") {
 
-	@helper.form(action = routes.TeacherController.doReject) {
-		<input type="hidden" value="@rejectForm("id").value" name="id">
-		
-		<div class="row">
-	    	<div class="col-md-6">
-				<div class="form-group">
-					<label for="comment">@Messages("comment")</label>
-					<textarea class="form-control" rows="3" name="comment" id="comment"></textarea>
+	<div class="row">
+	    <div class="col-md-8 col-md-offset-2">
+			@helper.form(action = routes.TeacherController.doReject, 'class -> "whitePanel") {
+				<input type="hidden" value="@rejectForm("id").value" name="id">
+				<div class="row">
+			    	<div class="col-md-6">
+			    		<h3>@Messages("reject") @Messages("request")</h3>
+			    	</div>
+			    </div>
+				<div class="row">
+			    	<div class="col-md-6">
+						<div class="form-group">
+							<label for="comment">@Messages("comment")</label>
+							<textarea class="form-control" rows="3" name="comment" id="comment"></textarea>
+						</div>
+					</div>
 				</div>
-			</div>
+			    
+			    <div class="row">
+			    	<div class="col-md-12">
+		        		<input type="submit" class="btn btn-primary" value="@Messages("save")">
+			    	</div>
+			    </div>
+			}
 		</div>
-	    
-	    <div class="row">
-	    	<div class="col-md-12">
-        		<input type="submit" class="btn btn-primary" value="@Messages("save")">
-	    	</div>
-	    </div>
-	}
+	</div>
 
 }

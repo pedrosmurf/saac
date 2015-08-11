@@ -3,52 +3,52 @@
 # ~~~~
 
 # Home page
-GET    /                             controllers.ApplicationController.index
-GET    /logout                       controllers.ApplicationController.logout
+GET    /                                 controllers.ApplicationController.index
+GET    /logout                           controllers.ApplicationController.logout
 
 
 #Authentication
 
-GET    /user/login                   controllers.ApplicationController.login
-POST   /user/authenticate            controllers.ApplicationController.authenticate
+GET    /user/login                       controllers.ApplicationController.login
+POST   /user/authenticate                controllers.ApplicationController.authenticate
 
 #Admin
 
-GET    /admin/list                   controllers.AdminController.listAll
-GET    /admin/create/student         controllers.AdminController.createStudent
-GET    /admin/create/teacher         controllers.AdminController.createTeacher
-GET    /admin/edit/:enrollment       controllers.AdminController.edit(enrollment:String)
-GET    /admin/remove/:enrollment     controllers.AdminController.remove(enrollment:String)
-POST   /admin/create/save            controllers.AdminController.save
-POST   /admin/update                 controllers.AdminController.update
+GET    /admin/list                       controllers.AdminController.listAll
+GET    /admin/create/student             controllers.AdminController.createStudent
+GET    /admin/create/teacher             controllers.AdminController.createTeacher
+GET    /admin/edit/:enrollment           controllers.AdminController.edit(enrollment:String)
+GET    /admin/remove/:enrollment         controllers.AdminController.remove(enrollment:String)
+POST   /admin/create/save                controllers.AdminController.save
+POST   /admin/update                     controllers.AdminController.update
 
 #Teacher
 
-GET    /user/map/view/:id            controllers.TeacherController.view(id:Long)
-GET    /request/list/by/teacher      controllers.TeacherController.list
-GET    /request/evaluat/:id          controllers.TeacherController.evaluat(id:Long)
-GET    /request/reject/:id           controllers.TeacherController.reject(id:Long)
-GET    /request/print/:id            controllers.TeacherController.print(id:Long)
-GET    /request/store/:id            controllers.TeacherController.store(id:Long)
-POST   /request/do/reject            controllers.TeacherController.doReject
+GET    /user/map/view/:id                controllers.TeacherController.view(id:Long)
+GET    /request/list/by/teacher          controllers.TeacherController.list
+GET    /request/evaluat/:id/:userMapId   controllers.TeacherController.evaluat(id:Long,userMapId:Long)
+GET    /request/reject/:id               controllers.TeacherController.reject(id:Long)
+GET    /request/print/:id                controllers.TeacherController.print(id:Long)
+GET    /request/store/:id                controllers.TeacherController.store(id:Long)
+POST   /request/do/reject                controllers.TeacherController.doReject
 
 #Request
 
-GET    /user/map/:id                 controllers.StudentController.submit(id: Long)
-GET    /request/create               controllers.StudentController.create
-GET    /request/list/by/kind/:kind   controllers.StudentController.getActivityByKind(kind:String)
-POST   /request/save                 controllers.StudentController.save
-GET    /request/list/by/student      controllers.StudentController.listByStudent
-GET    /request/list/all             controllers.StudentController.listAll
-GET    /request/edit/:id             controllers.StudentController.edit(id:Long)
-POST   /request/update               controllers.StudentController.update
-GET    /request/view/:id             controllers.StudentController.view(id:Long)
-GET    /request/submit/:id           controllers.StudentController.submit(id:Long)
-GET    /request/complet/:id          controllers.StudentController.complet(id:Long)
-GET    /request/correct/:id          controllers.StudentController.correct(id:Long)
-GET    /documents/*file              controllers.StudentController.at(path="/documents", file)
+GET    /user/map/:id                     controllers.StudentController.submit(id: Long)
+GET    /request/create                   controllers.StudentController.create
+GET    /request/list/by/kind/:kind       controllers.StudentController.getActivityByKind(kind:String)
+POST   /request/save                     controllers.StudentController.save
+GET    /request/list/by/student          controllers.StudentController.listByStudent
+GET    /request/list/all                 controllers.StudentController.listAll
+GET    /request/edit/:id                 controllers.StudentController.edit(id:Long)
+POST   /request/update                   controllers.StudentController.update
+GET    /request/view/:id                 controllers.StudentController.view(id:Long)
+GET    /request/submit/:id               controllers.StudentController.submit(id:Long)
+GET    /request/complet/:id              controllers.StudentController.complet(id:Long)
+GET    /request/correct/:id              controllers.StudentController.correct(id:Long)
+GET    /documents/*file                  controllers.StudentController.at(path="/documents", file)
 
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET    /assets/*file                 controllers.Assets.at(path="/public", file)
+GET    /assets/*file                     controllers.Assets.at(path="/public", file)
