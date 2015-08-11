@@ -57,7 +57,8 @@ a.menuItem {
 a.active{
 	background-color: #231e5e;
 	color: #fff!important;
-	box-shadow: 0px 4px 2px #888888;
+	margin-left:5px;
+	box-shadow: 4px 4px 2px #888888;
 }
 
 a.not-active {
