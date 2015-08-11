@@ -29,7 +29,7 @@ object Global extends GlobalSettings {
 
   override def onError(request: RequestHeader, ex: Throwable) = {
       Future {
-        Ok(views.html.error(ex))
+        Ok(views.html.error(request,ex))
       }
   }
 
