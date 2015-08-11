@@ -12,6 +12,7 @@ import models.Teacher
 import models.UserMaps
 import models.UserMap
 import models.MapCreated
+import scala.concurrent.ExecutionContext.Implicits.global
 
 object Global extends GlobalSettings {
 
@@ -27,9 +28,9 @@ object Global extends GlobalSettings {
   }
 
   override def onError(request: RequestHeader, ex: Throwable) = {
-    Future {
-      Redirect(routes.ApplicationController.error(ex))
-    }
+      Future {
+        Ok(views.html.error(ex))
+      }
   }
 
 }
