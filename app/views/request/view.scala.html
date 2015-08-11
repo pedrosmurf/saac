@@ -3,97 +3,106 @@
 @main("request") {
 
 
-		<div class="row">
-	    	<div class="col-md-6">
-	    		<div class="form-group">
-    				<label for="document">@Messages("document")</label>
-    				<br/>
-    				<a href="@routes.StudentController.at(req.user.enrollment + "/" +req.document)" >@req.document</a>
-    			</div>
-	    	</div>
-	    </div>
-	    
-	    <div class="row">
-	    	<div class="col-md-6">
-	    		<div class="form-group">
-    				<label for="kind">@Messages("kind")</label>
-    				<input type="text" class="form-control" id="kind" name="kind" value="@Messages(req.activity.kind.value)" readonly>
-    			</div>
-	    	</div>
-	    </div>
-	    
-	    <div class="row">
-	    	<div class="col-md-6">
-	    		<div class="form-group">
-    				<label for="activity">@Messages("activity")</label>
-    				<input type="text" class="form-control" id="activity" name="activity" value="@Messages(req.activity.value)" readonly>
-    			</div>
-	    	</div>
-	    </div>
-	    
-	    <div class="row">
-	    	<div class="col-md-6">
-				<div class="form-group">
-					<label for="event">@Messages("event")</label>
-					<input type="text" class="form-control" id="event" name="event" value="@req.event" readonly>
+	<div class="row">
+    	<div class="col-md-8 col-md-offset-2 whitePanel">
+    		<div class="row">
+		    	<div class="col-md-12">
+		    		<h3>@Messages("view") @Messages("request")</h3>
+		    	</div>
+		    </div>
+			<div class="row">
+		    	<div class="col-md-12">
+		    		<div class="form-group">
+	    				<label for="document">@Messages("document")</label>
+	    				<br/>
+	    				<a href="@routes.StudentController.at(req.user.enrollment + "/" +req.document)" >@req.document</a>
+	    			</div>
+		    	</div>
+		    </div>
+		    
+		    <div class="row">
+		    	<div class="col-md-12">
+		    		<div class="form-group">
+	    				<label for="kind">@Messages("kind")</label>
+	    				<input type="text" class="form-control" id="kind" name="kind" value="@Messages(req.activity.kind.value)" readonly>
+	    			</div>
+		    	</div>
+		    </div>
+		    
+		    <div class="row">
+		    	<div class="col-md-12">
+		    		<div class="form-group">
+	    				<label for="activity">@Messages("activity")</label>
+	    				<input type="text" class="form-control" id="activity" name="activity" value="@Messages(req.activity.value)" readonly>
+	    			</div>
+		    	</div>
+		    </div>
+		    
+		    <div class="row">
+		    	<div class="col-md-12">
+					<div class="form-group">
+						<label for="event">@Messages("event")</label>
+						<input type="text" class="form-control" id="event" name="event" value="@req.event" readonly>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+		    	<div class="col-md-12">
+					<div class="form-group">
+						<label for="description">@Messages("description")</label>
+						<textarea class="form-control" rows="3" name="description" id="description" readonly>@req.description</textarea>
+					</div>
+				</div>
+			</div>
+			
+			
+			
+			<div class="row">
+		    	<div class="col-md-12">
+					<div class="form-group">
+						<label for="participation">@Messages("participation")</label>
+						<input type="text" class="form-control" id="participation" name="participation" value="@req.participation" readonly>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+		    	<div class="col-md-12">
+					<div class="form-group">
+						<label for="institution">@Messages("institution")</label>
+						<input type="text" class="form-control" id="institution" name="institution" value="@req.institution" readonly>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+		    	<div class="col-md-12">
+					<div class="form-group">
+						<label for="period">@Messages("period")</label>
+						<input type="text" class="form-control" id="period" name="period" value="@req.period" readonly>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+		    	<div class="col-md-12">
+					<div class="form-group">
+						<label for="workload">@Messages("workload")</label>
+						<input type="text" class="form-control" id="workload" name="workload" value="@req.workload" readonly>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+		    	<div class="col-md-12">
+					<div class="form-group">
+						<label for="comment">@Messages("comment")</label>
+						<textarea class="form-control" rows="3" name="comment" id="comment" readonly>@req.comment</textarea>
+					</div>
 				</div>
 			</div>
 		</div>
-		
-		<div class="row">
-	    	<div class="col-md-6">
-				<div class="form-group">
-					<label for="description">@Messages("description")</label>
-					<textarea class="form-control" rows="3" name="description" id="description" readonly>@req.description</textarea>
-				</div>
-			</div>
-		</div>
-		
-		
-		
-		<div class="row">
-	    	<div class="col-md-6">
-				<div class="form-group">
-					<label for="participation">@Messages("participation")</label>
-					<input type="text" class="form-control" id="participation" name="participation" value="@req.participation" readonly>
-				</div>
-			</div>
-		</div>
-		
-		<div class="row">
-	    	<div class="col-md-6">
-				<div class="form-group">
-					<label for="institution">@Messages("institution")</label>
-					<input type="text" class="form-control" id="institution" name="institution" value="@req.institution" readonly>
-				</div>
-			</div>
-		</div>
-		
-		<div class="row">
-	    	<div class="col-md-6">
-				<div class="form-group">
-					<label for="period">@Messages("period")</label>
-					<input type="text" class="form-control" id="period" name="period" value="@req.period" readonly>
-				</div>
-			</div>
-		</div>
-		
-		<div class="row">
-	    	<div class="col-md-6">
-				<div class="form-group">
-					<label for="workload">@Messages("workload")</label>
-					<input type="text" class="form-control" id="workload" name="workload" value="@req.workload" readonly>
-				</div>
-			</div>
-		</div>
-		
-		<div class="row">
-	    	<div class="col-md-6">
-				<div class="form-group">
-					<label for="comment">@Messages("comment")</label>
-					<textarea class="form-control" rows="3" name="comment" id="comment" readonly>@req.comment</textarea>
-				</div>
-			</div>
-		</div>
+	</div>
 
 }

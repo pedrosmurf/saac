@@ -62,7 +62,7 @@ object StudentController extends SaacController {
       val req = Requests.get(id)
       val kinds = List(Teaching, Research, General, Extension, Sport, Cultural)
 
-      Ok(views.html.request.edit(createForm.fill((req.id, req.activity.value, req.event, req.description, req.participation, req.institution, req.period, req.workload)), kinds))
+      Ok(views.html.request.edit(req, createForm.fill((req.id, req.activity.value, req.event, req.description, req.participation, req.institution, req.period, req.workload)), kinds))
   }
 
   def view(id: Long) = Authenticated {
@@ -114,7 +114,7 @@ object StudentController extends SaacController {
         })
   }
 
-  def update = Authenticated {
+  def update = Authenticated(parse.multipartFormData) {
     implicit request =>
       createForm.bindFromRequest.fold(
         formWithErrors => {
@@ -122,21 +122,42 @@ object StudentController extends SaacController {
         },
         form => {
           val userEnrollment: String = request.session("User")
-
           val re = Requests.get(form._1.getOrElse(0L))
-          val requestUpdated = re.copy(
-            activity = Activity(form._2),
-            event = form._3,
-            description = form._4,
-            participation = form._5,
-            institution = form._6,
-            period = form._7,
-            workload = form._8)
+          request.body.file("document").map { document =>
+            val filename = document.filename
 
-          if (Requests.update(requestUpdated)) {
-            Redirect(routes.ApplicationController.index).flashing("message" -> "save.success", "type" -> "success")
-          } else {
-            Redirect(routes.ApplicationController.index).flashing("message" -> "save.error", "type" -> "error")
+            val requestUpdated = re.copy(
+              activity = Activity(form._2),
+              event = form._3,
+              description = form._4,
+              participation = form._5,
+              institution = form._6,
+              period = form._7,
+              workload = form._8,
+              document = filename)
+
+            if (Requests.update(requestUpdated)) {
+              val file = new File(s"files/$userEnrollment/$filename")
+              document.ref.moveTo(file)
+              Redirect(routes.ApplicationController.index).flashing("message" -> "save.success", "type" -> "success")
+            } else {
+              Redirect(routes.ApplicationController.index).flashing("message" -> "save.error", "type" -> "error")
+            }
+          }.getOrElse {
+            val requestUpdated = re.copy(
+              activity = Activity(form._2),
+              event = form._3,
+              description = form._4,
+              participation = form._5,
+              institution = form._6,
+              period = form._7,
+              workload = form._8)
+
+            if (Requests.update(requestUpdated)) {
+              Redirect(routes.ApplicationController.index).flashing("message" -> "save.success", "type" -> "success")
+            } else {
+              Redirect(routes.ApplicationController.index).flashing("message" -> "save.error", "type" -> "error")
+            }
           }
         })
   }

@@ -1,110 +1,135 @@
-@(createForm:Form[(Option[Long], String, String, String, String, String, String, Long)],kinds:List[Kind])(implicit flash:Flash, session:Session)
+@(req:models.Request,createForm:Form[(Option[Long], String, String, String, String, String, String, Long)],kinds:List[Kind])(implicit flash:Flash, session:Session)
 
 @main("request") {
 
-	@helper.form(action = routes.StudentController.update) {
-	    <input type="hidden" value="@createForm("id").value" name="id">
-	    @**
-	    <div class="row">
-	    	<div class="col-md-12">
-	    		<div class="form-group">
-    				<label for="document">@Messages("document")</label>
-	    			<input type="file" name="document" id="document">
-    			</div>
-	    	</div>
-	    </div>
-	    
-	    <div class="row">
-	    	<div class="col-md-6">
-	    		<div class="form-group">
-    				<label for="kind">@Messages("kind")</label>
-					<select class="form-control" name="kind" id="kind">
-						@for(kind <-kinds){
-							<option value="@kind.value" @if(createForm("activity").value.get == kind.value.toLowerCase){selected}>@Messages(kind.value)</option>
-						}
-					</select>
-    			</div>
-	    	</div>
-	    </div>
-	    **@
-	    <div class="row">
-	    	<div class="col-md-6">
-	    		<div class="form-group">
-    				<label for="activity">@Messages("activity")</label>
-    				<input type="text" class="form-control" value="@Messages(createForm("activity").value.get)" readonly>
-					<input type="hidden" name="activity" id="activity" value="@createForm("activity").value.get" readonly>
-    			</div>
-	    	</div>
-	    </div>
-	    
-	    
-	    <div class="row">
-	    	<div class="col-md-6">
-				<div class="form-group">
-					<label for="event">@Messages("event")</label>
-					<input type="text" class="form-control" id="event" name="event" value="@createForm("event").value">
+	<div class="row">
+	    <div class="col-md-8 col-md-offset-2">
+			@helper.form(action = routes.StudentController.update, 'enctype -> "multipart/form-data", 'class -> "whitePanel") {
+				<div class="row">
+				    <div class="col-md-12">
+				    	<h3>@Messages("edit") @Messages("request")</h3>
+				    </div>
+			    </div>
+			    <input type="hidden" value="@createForm("id").value" name="id">
+			    
+			    <div class="row">
+			    	<div class="col-md-12">
+			    		<div class="form-group">
+		    				<label for="document">@Messages("document")</label>
+		    				<a href="@routes.StudentController.at(req.user.enrollment + "/" +req.document)" >@req.document</a>
+			    			<input type="file" name="document" id="document">
+		    			</div>
+			    	</div>
+			    </div>
+			    
+			    <div class="row">
+			    	<div class="col-md-12">
+			    		<div class="form-group">
+		    				<label for="activity">@Messages("activity")</label>
+		    				<input type="text" class="form-control" value="@Messages(createForm("activity").value.get)" readonly>
+							<input type="hidden" name="activity" id="activity" value="@createForm("activity").value.get" readonly>
+		    			</div>
+			    	</div>
+			    </div>
+			    
+			    
+			    <div class="row">
+			    	<div class="col-md-12">
+						<div class="form-group" id="eventDiv">
+							<label for="event">@Messages("event")</label>
+							<input type="text" class="form-control" id="event" name="event" value="@createForm("event").value">
+							<div id="xevent" class="hide">
+								<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+			  					<span id="eventStatus" class="sr-only">(error)</span>
+		  					</div>
+							<div id="eventErrorMessage" class="hide"><label class="control-label">@Messages("required.field")</label></div>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
-		
-		<div class="row">
-	    	<div class="col-md-6">
-				<div class="form-group">
-					<label for="description">@Messages("description")</label>
-					<textarea class="form-control" rows="3" name="description" id="description">@createForm("description").value</textarea>
+				
+				<div class="row">
+			    	<div class="col-md-12">
+						<div class="form-group" id="descriptionDiv">
+							<label for="description">@Messages("description")</label>
+							<textarea class="form-control" rows="3" name="description" id="description">@createForm("description").value</textarea>
+							<div id="xdescription" class="hide">
+								<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+			  					<span id="descriptionStatus" class="sr-only">(error)</span>
+		  					</div>
+							<div id="descriptionErrorMessage" class="hide"><label class="control-label">@Messages("required.field")</label></div>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
-		
-		
-		
-		<div class="row">
-	    	<div class="col-md-6">
-				<div class="form-group">
-					<label for="participation">@Messages("participation")</label>
-					<input type="text" class="form-control" id="participation" name="participation" value="@createForm("participation").value">
+				
+				
+				
+				<div class="row">
+			    	<div class="col-md-12">
+						<div class="form-group" id="participationDiv">
+							<label for="participation">@Messages("participation")</label>
+							<input type="text" class="form-control" id="participation" name="participation" value="@createForm("participation").value">
+							<div id="xparticipation" class="hide">
+								<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+			  					<span id="participationStatus" class="sr-only">(error)</span>
+		  					</div>
+							<div id="participationErrorMessage" class="hide"><label class="control-label">@Messages("required.field")</label></div>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
-		
-		<div class="row">
-	    	<div class="col-md-6">
-				<div class="form-group">
-					<label for="institution">@Messages("institution")</label>
-					<input type="text" class="form-control" id="institution" name="institution" value="@createForm("institution").value">
+				
+				<div class="row">
+			    	<div class="col-md-12">
+						<div class="form-group" id="institutionDiv">
+							<label for="institution">@Messages("institution")</label>
+							<input type="text" class="form-control" id="institution" name="institution" value="@createForm("institution").value">
+							<div id="xinstitution" class="hide">
+								<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+			  					<span id="institutionStatus" class="sr-only">(error)</span>
+		  					</div>
+							<div id="institutionErrorMessage" class="hide"><label class="control-label">@Messages("required.field")</label></div>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
-		
-		<div class="row">
-	    	<div class="col-md-6">
-				<div class="form-group">
-					<label for="period">@Messages("period")</label>
-					<input type="text" class="form-control" id="period" name="period" value="@createForm("period").value">
+				
+				<div class="row">
+			    	<div class="col-md-12">
+						<div class="form-group" id="periodDiv">
+							<label for="period">@Messages("period")</label>
+							<input type="text" class="form-control" id="period" name="period" value="@createForm("period").value">
+							<div id="xperiod" class="hide">
+								<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+			  					<span id="periodStatus" class="sr-only">(error)</span>
+		  					</div>
+							<div id="periodErrorMessage" class="hide"><label class="control-label">@Messages("required.field")</label></div>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
-		
-		<div class="row">
-	    	<div class="col-md-6">
-				<div class="form-group" id="workloadDiv">
-					<label class="control-label" for="workload">@Messages("workload")</label> 
-					<input type="text" class="form-control" id="workload" name="workload" aria-describedby="workloadStatus">
-					<div id="xworkload" class="hide">
-						<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-	  					<span id="workloadStatus" class="sr-only">(error)</span>
-  					</div>
-					<div id="errorMessageWorkload" class="hide"><label class="control-label">@Messages("value.under") <span id="maxWorkload"></span></label></div>
+				
+				<div class="row">
+			    	<div class="col-md-12">
+						<div class="form-group" id="workloadDiv">
+							<label class="control-label" for="workload">@Messages("workload")</label> 
+							<input type="hidden" value="@req.activity.maxWorkload" id="maxWorkloadValue"> 
+							<input type="text" class="form-control" id="workload" name="workload" aria-describedby="workloadStatus" value="@req.workload">
+							<div id="xworkload" class="hide">
+								<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+			  					<span id="workloadStatus" class="sr-only">(error)</span>
+		  					</div>
+							<div id="errorMessageWorkload" class="hide"><label class="control-label">@Messages("value.under") <span id="maxWorkload"></span></label></div>
+						</div>
+					</div>
 				</div>
-			</div>
+				
+				
+			    <div class="row">
+			    	<div class="col-md-12">
+		        		<input type="submit" class="btn btn-primary form-control" value="@Messages("save")" disabled="true" id="submit">
+			    	</div>
+			    </div>
+			}
 		</div>
-		
-		
-	    <div class="row">
-	    	<div class="col-md-12">
-        		<input type="submit" class="btn btn-primary" value="@Messages("save")">
-	    	</div>
-	    </div>
-	}
-
+	</div>
+	
+	
+	<script src="@routes.Assets.at("javascripts/app/edit.js")" type="text/javascript"></script>
 }
