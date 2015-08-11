@@ -20,9 +20,16 @@ object Global extends GlobalSettings {
     Requests.createTable
     UserMaps.createTable
     //    Users.insert(User("admin", "admin", "Admin", Admin))
-//    Users.insert(User("0949450", "123", "Pedro", Student))
+    //    Users.insert(User("0949450", "123", "Pedro", Student))
     //    Users.insert(User("1234567", "123", "Joao", Student))
-//    Users.insert(User("87654321", "123", "Maria", Teacher))
-//    UserMaps.insert(UserMap(Some(1L), User("0949450", "123", "Pedro", Student), true, Nil, 0, 0, MapCreated))
+    //    Users.insert(User("87654321", "123", "Maria", Teacher))
+    //    UserMaps.insert(UserMap(Some(1L), User("0949450", "123", "Pedro", Student), true, Nil, 0, 0, MapCreated))
   }
+
+  override def onError(request: RequestHeader, ex: Throwable) = {
+    Future {
+      Redirect(routes.ApplicationController.error(ex))
+    }
+  }
+
 }
