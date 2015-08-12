@@ -5,6 +5,8 @@
 	<div class="row">
 	    <div class="col-md-8 col-md-offset-2">
 			@helper.form(action = routes.StudentController.update, 'enctype -> "multipart/form-data", 'class -> "whitePanel") {
+				<input style="display:none">
+				<input type="password" style="display:none">
 				<div class="row">
 				    <div class="col-md-12">
 				    	<h3>@Messages("edit") @Messages("request")</h3>
@@ -15,7 +17,7 @@
 			    <div class="row">
 			    	<div class="col-md-12">
 			    		<div class="form-group">
-		    				<label for="document">@Messages("document")</label>
+		    				<label for="document">@Messages("document") <a  tabindex="-1" data-tooltip="@Messages("help.edit.document")" href="#"><span class="glyphicon glyphicon-info-sign"></span></a></label>
 		    				<a href="@routes.StudentController.at(req.user.enrollment + "/" +req.document)" >@req.document</a>
 			    			<input type="file" name="document" id="document">
 		    			</div>
@@ -25,7 +27,7 @@
 			    <div class="row">
 			    	<div class="col-md-12">
 			    		<div class="form-group">
-		    				<label for="activity">@Messages("activity")</label>
+		    				<label for="activity">@Messages("activity") </label>
 		    				<input type="text" class="form-control" value="@Messages(createForm("activity").value.get)" readonly>
 							<input type="hidden" name="activity" id="activity" value="@createForm("activity").value.get" readonly>
 		    			</div>
@@ -36,7 +38,7 @@
 			    <div class="row">
 			    	<div class="col-md-12">
 						<div class="form-group" id="eventDiv">
-							<label for="event">@Messages("event")</label>
+							<label for="event">@Messages("event") <a  tabindex="-1" data-tooltip="@Messages("help.event")" href="#"><span class="glyphicon glyphicon-info-sign"></span></a></label>
 							<input type="text" class="form-control" id="event" name="event" value="@createForm("event").value">
 							<div id="xevent" class="hide">
 								<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -50,7 +52,7 @@
 				<div class="row">
 			    	<div class="col-md-12">
 						<div class="form-group" id="descriptionDiv">
-							<label for="description">@Messages("description")</label>
+							<label for="description">@Messages("description") <a  tabindex="-1" data-tooltip="@Messages("help.description")" href="#"><span class="glyphicon glyphicon-info-sign"></span></a></label>
 							<textarea class="form-control" rows="3" name="description" id="description">@createForm("description").value</textarea>
 							<div id="xdescription" class="hide">
 								<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -66,7 +68,7 @@
 				<div class="row">
 			    	<div class="col-md-12">
 						<div class="form-group" id="participationDiv">
-							<label for="participation">@Messages("participation")</label>
+							<label for="participation">@Messages("participation") <a  tabindex="-1" data-tooltip="@Messages("help.participation")" href="#"><span class="glyphicon glyphicon-info-sign"></span></a></label>
 							<input type="text" class="form-control" id="participation" name="participation" value="@createForm("participation").value">
 							<div id="xparticipation" class="hide">
 								<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -80,7 +82,7 @@
 				<div class="row">
 			    	<div class="col-md-12">
 						<div class="form-group" id="institutionDiv">
-							<label for="institution">@Messages("institution")</label>
+							<label for="institution">@Messages("institution") <a  tabindex="-1" data-tooltip="@Messages("help.institution")" href="#"><span class="glyphicon glyphicon-info-sign"></span></a></label>
 							<input type="text" class="form-control" id="institution" name="institution" value="@createForm("institution").value">
 							<div id="xinstitution" class="hide">
 								<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -94,7 +96,7 @@
 				<div class="row">
 			    	<div class="col-md-12">
 						<div class="form-group" id="periodDiv">
-							<label for="period">@Messages("period")</label>
+							<label for="period">@Messages("period") <a  tabindex="-1" data-tooltip="@Messages("help.period")" href="#"><span class="glyphicon glyphicon-info-sign"></span></a></label>
 							<input type="text" class="form-control" id="period" name="period" value="@createForm("period").value">
 							<div id="xperiod" class="hide">
 								<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -108,7 +110,7 @@
 				<div class="row">
 			    	<div class="col-md-12">
 						<div class="form-group" id="workloadDiv">
-							<label class="control-label" for="workload">@Messages("workload")</label> 
+							<label class="control-label" for="workload">@Messages("workload") <a  tabindex="-1" data-tooltip="@Messages("help.workload")" href="#"><span class="glyphicon glyphicon-info-sign"></span></a></label> 
 							<input type="hidden" value="@req.activity.maxWorkload" id="maxWorkloadValue"> 
 							<input type="text" class="form-control" id="workload" name="workload" aria-describedby="workloadStatus" value="@req.workload">
 							<div id="xworkload" class="hide">

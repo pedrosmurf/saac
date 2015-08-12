@@ -32,6 +32,23 @@ remove.success = Removido com sucesso
 required.field = Campo obrigatório
 
 
+#Helpers
+
+help.document = Documento de compravação da atividade complementar
+help.kind = Natureza que se enquadra a atividade complementar
+help.activity = Qual tipo de atividade complementar
+help.event = O evento que a atividade complementar foi desenvolvida
+help.description =	Uma descrição mais detalhada explicando a atividade complementar
+help.participation = A sua participação no desenvolvimento da atividade complementar
+help.institution = A instituição que a atividade complementar foi desenvolvida
+help.period = O período em que a atividade complementar foi desenvolvido
+help.workload = Quantidade de horas gastas para o desenvolvimento da atividade complementar
+help.edit.document = Caso nenhum arquivo seja escolhido será mantido o arquivo anterior
+help.comment = Comentários feitos pelo professor
+help.user.enrollment = Matrícula do usuário
+help.user.name = Nome do usuário
+help.user.password = Senha do usuário
+
 
 #Actions
 

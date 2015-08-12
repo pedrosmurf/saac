@@ -15,8 +15,11 @@
     <body>
     
 	    <div class="row mainStrip">
-	    	<div class="col-md-12">
-	    		<img src="@routes.Assets.at("images/logo.png")" class="imageUece">
+	    	<div class="col-md-6">
+	    		<div class="pull-left"><img src="@routes.Assets.at("images/logo.png")"></div>
+    		</div>
+    		<div class="col-md-6">
+	    		<h2><span class="headTitle">@Messages("application.name")</span></h2>
 	    	</div>
 	    </div>
     
@@ -24,8 +27,11 @@
     	<div class="row">
     		<div class="col-md-2">
     			<div class="whitePanel menu">
-						<a href="@routes.ApplicationController.index" class="menuItem @("active".when(context == "home"))">@Messages("home")</a>
 						@defining(session.get("Role").getOrElse("student")) { currentRole =>
+	    					<a href="#" class="menuItem not-active"><span class="glyphicon glyphicon-user"></span> @session.get("Name")</a>
+	    					<hr>
+    			
+							<a href="@routes.ApplicationController.index" class="menuItem @("active".when(context == "home"))">@Messages("home")</a>
 							@if(currentRole == Student.value){
 								<a href="@routes.StudentController.create" class="menuItem @("active".when(context == "request"))">@Messages("request")</a>
 							}
@@ -33,8 +39,8 @@
 								<a href="@routes.AdminController.createStudent" class="menuItem @("active".when(context == "student"))">@Messages("student")</a>
 								<a href="@routes.AdminController.createTeacher" class="menuItem @("active".when(context == "teacher"))">@Messages("teacher")</a>
 							}
+							<a href="@routes.ApplicationController.logout" class="menuItem">@Messages("logout")</a>
 						}
-						<a href="@routes.ApplicationController.logout" class="menuItem">@Messages("logout")</a>
 				</div>
 			</div>
     		<div class="col-md-8">

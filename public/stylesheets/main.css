@@ -131,6 +131,15 @@ a.not-active {
   opacity: 1;
 }
 
+.headTitle{
+	text-transform: uppercase;
+	font-weight: 700;
+    font-size: 40px;
+    letter-spacing: 5px;
+    text-shadow: 2px 2px #cfcfcf;
+    color:#231e5e;
+}
+
 .imageUece {
 	display: block;
 	margin-left: auto;

@@ -23,9 +23,8 @@ object ApplicationController extends SaacController {
 
       val role = Role(request.session("Role")) //FIXME
 
-      
       role match {
-        case Teacher=>
+        case Teacher =>
           Redirect(routes.TeacherController.list).flashing(request.flash)
         case Admin =>
           Redirect(routes.AdminController.listAll).flashing(request.flash)
@@ -55,7 +54,7 @@ object ApplicationController extends SaacController {
             case None =>
               Redirect(routes.ApplicationController.login).flashing("message" -> "login.error", "type" -> "error")
             case Some(user) =>
-              Redirect(routes.ApplicationController.index).withSession(("User" -> user.enrollment), ("Role" -> user.role.value))
+              Redirect(routes.ApplicationController.index).withSession(("User" -> user.enrollment), ("Role" -> user.role.value), ("Name" -> user.name))
           }
         })
   }

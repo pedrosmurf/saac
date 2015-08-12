@@ -5,6 +5,8 @@
 	<div class="row">
 	    <div class="col-md-8 col-md-offset-2">
 			@helper.form(action = routes.TeacherController.doReject, 'class -> "whitePanel") {
+				<input style="display:none">
+				<input type="password" style="display:none">
 				<input type="hidden" value="@rejectForm("id").value" name="id">
 				<div class="row">
 			    	<div class="col-md-6">
