@@ -2,6 +2,7 @@ var url = '';
 
 jQuery(function(){
 	var kind = jQuery("#kind").val()
+	showTeachingHelpWorkload(kind)
 	
 	var protocol = window.location.href.split('/')[0]
 	var site = window.location.href.split('/')[2]
@@ -13,6 +14,8 @@ jQuery(function(){
 })
 jQuery("#kind").change(function(){
 	var kind = jQuery(this).val()
+	showTeachingHelpWorkload(kind)
+	
 	jQuery.getJSON(url+"/request/list/by/kind/"+kind, function(activities) {
 		addActivities(activities)
 	})
@@ -23,6 +26,7 @@ function addActivities(activities){
 	jQuery.each(activities, function(index,activity){
 		jQuery("#activity").append("<option value='"+activity.value+"' data-workload='"+activity.maxWorkload+"'>"+i18n(activity.value)+"</option>")
 	})
+	validateWorkload()
 }
 
 var validDocument = false
@@ -33,6 +37,21 @@ var validInstitution = false
 var validPeriod = false
 var validWorkload = false
 
+function showTeachingHelpWorkload(kind){
+	if(isTeaching(kind)){
+		jQuery("#teachingHelpWorkload").removeClass('hide')
+	}else{
+		jQuery("#teachingHelpWorkload").addClass('hide')
+	}
+}
+function isTeaching(kind){
+	return kind === "teaching"
+}
+
+function isSemester(period){
+	var semesterRegex = /[0-9][0-9][0-9][0-9][.][1-2]/;
+	return semesterRegex.exec(period) != null
+}
 
 function validateForm(){
 	if(validDocument && validEvent && validDescription && validParticipation && validInstitution && validPeriod && validWorkload){
@@ -118,13 +137,18 @@ jQuery("#period").focusout(function(){
 		validPeriod = false
 		showAlert("period")
 	}else{
-		validPeriod = true
-		removeAlert("period")
+		if(isSemester(value)){
+			validPeriod = true
+			removeAlert("period")
+		}else{
+			validPeriod = false
+			showAlert("period")
+		}
 	}
 	validateForm()
 })
 
-jQuery("#workload").focusout(function(){
+function validateWorkload(){
 	var workload = parseInt(jQuery("#workload").val())
 	var maxWorkload = parseInt(jQuery("#activity").find(':selected').data('workload'))
 	
@@ -142,6 +166,10 @@ jQuery("#workload").focusout(function(){
 		validWorkload = true
 	}
 	validateForm()
+}
+
+jQuery("#workload").focusout(function(){
+	validateWorkload()
 })
 
 function i18n(value){
@@ -172,9 +200,11 @@ function i18n(value){
 		case "tutoring": return "Participação em Programas de Monitoria Acadêmica"
 		case "event_participation": return "Participação em eventos"
 		case "lab_internship": return "Estágios em laboratórios de ensino e de pesquisa"
+		case "internship": return "Estágios"
 		case "event_planning": return "Participação em comissões organizadoras de eventos acadêmicos, artísticos e culturais"
 		case "class_planning": return "Produção de material didático com orientação de Professores"
 		case "school_participation": return "Participação como representante estudantil nos Colegiados"
 		case "community_participation": return "Participação em Projetos ou Programas registrados na Pró-Reitoria de Extensão"
 	}
+	console.log(value)
 }

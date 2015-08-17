@@ -20,20 +20,20 @@ case class Request(
   comment: String)
 
 case class RequestTable(
-  id: Option[Long],
-  status: String,
-  userEnrollment: String,
-  activity: String,
-  event: String,
-  description: String,
-  participation: String,
-  institution: String,
-  period: String,
-  workload: Long,
-  validWorkload: Long,
-  document: String,
-  comment: String,
-  userMapId: Long) {
+    id: Option[Long],
+    status: String,
+    userEnrollment: String,
+    activity: String,
+    event: String,
+    description: String,
+    participation: String,
+    institution: String,
+    period: String,
+    workload: Long,
+    validWorkload: Long,
+    document: String,
+    comment: String,
+    userMapId: Long) {
 
   def toEntity = {
 
@@ -91,11 +91,15 @@ object Requests {
     DB.connection.withSession {
       implicit session =>
         val createdRequest = toTable(request).copy(status = Created.value)
-        requests.+=(createdRequest) match {
-          case 1 =>
-            UserMaps.updateWorkload(createdRequest.userMapId)
-            true
-          case _ => false
+        if (validateWorkload(request)) {
+          requests.+=(createdRequest) match {
+            case 1 =>
+              UserMaps.updateWorkload(createdRequest.userMapId)
+              true
+            case _ => false
+          }
+        } else {
+          false
         }
     }
   }
@@ -104,13 +108,45 @@ object Requests {
     DB.connection.withSession {
       implicit session =>
         val updateRequest = toTable(request)
-        val query = for (r <- requests.filter(_.id === updateRequest.id)) yield (r)
-        query.update(updateRequest) match {
-          case 1 =>
-            UserMaps.updateWorkload(updateRequest.userMapId)
-            true
-          case _ => false
+        if (validateWorkload(request)) {
+          val query = for (r <- requests.filter(_.id === updateRequest.id)) yield (r)
+          query.update(updateRequest) match {
+            case 1 =>
+              UserMaps.updateWorkload(updateRequest.userMapId)
+              true
+            case _ => false
+          }
+        } else {
+          false
         }
+    }
+  }
+
+  private def validateWorkload(request: Request): Boolean = {
+    val futureTotalWorkload = getWorkloadByActivity(request.activity) + request.workload
+    val futureSemesterWorkload = getWorkloadByActivityAndPeriod(request.activity, request.period)
+
+    futureSemesterWorkload <= request.activity.maxWorkload && futureTotalWorkload <= request.activity.maxWorkloadPerActivity
+  }
+
+  def getWorkloadByActivity(activity: Activity): Long = {
+    DB.connection.withSession {
+      implicit session =>
+        val hours = (for (r <- requests.filter(_.activity === activity.value)) yield (r.workload)).list.fold(0L)((i, acc) => acc + i)
+        hours
+    }
+  }
+  def getWorkloadByActivityAndPeriod(activity: Activity, period: String): Long = {
+    DB.connection.withSession {
+      implicit session =>
+        val hours = (for (
+          r <- requests.filter {
+            req =>
+              req.activity === activity.value &&
+                req.period === period
+          }
+        ) yield (r.workload)).list.fold(0L)((i, acc) => acc + i)
+        hours
     }
   }
 

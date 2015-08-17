@@ -127,7 +127,11 @@
 				<div class="row">
 			    	<div class="col-md-12">
 						<div class="form-group" id="workloadDiv">
-							<label class="control-label" for="workload">@Messages("workload") * <a  tabindex="-1" data-tooltip="@Messages("help.workload")" href="#"><span class="glyphicon glyphicon-info-sign"></span></a></label> 
+							<label class="control-label" for="workload">
+								@Messages("workload") * 
+								<a  tabindex="-1" data-tooltip="@Messages("help.workload")" href="#"><span class="glyphicon glyphicon-info-sign"></span></a>
+								<a  id="teachingHelpWorkload" tabindex="-1" data-tooltip="@Messages("help.teaching.workload")" href="#" class="hide"><span class="glyphicon glyphicon-info-sign"></span></a>
+							</label> 
 							<input type="text" class="form-control" id="workload" name="workload" aria-describedby="workloadStatus">
 							<div id="xworkload" class="hide">
 								<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>

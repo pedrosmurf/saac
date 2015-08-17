@@ -11,6 +11,7 @@ sealed trait Activity {
   val value: String
   val kind: Kind
   val maxWorkload:Long
+  val maxWorkloadPerActivity:Long
 }
 
 object Activity {
@@ -42,6 +43,7 @@ object Activity {
       case "tutoring" => Tutoring
       case "event_participation" => EventParticipation
       case "lab_internship" => LabInternship
+      case "internship" => Internship
       case "event_planning" => EventPlanning
       case "class_planning" => ClassPlanning
       case "school_participation" => SchoolParticipation
@@ -78,6 +80,7 @@ object Activity {
       case Tutoring => "tutoring"
       case EventParticipation => "event_participation"
       case LabInternship => "lab_internship"
+      case Internship => "internship"
       case EventPlanning => "event_planning"
       case ClassPlanning => "class_planning"
       case SchoolParticipation => "school_participation"
@@ -113,6 +116,7 @@ object Activity {
       Tutoring,
       EventParticipation,
       LabInternship,
+      Internship,
       EventPlanning,
       ClassPlanning,
       SchoolParticipation,
@@ -136,149 +140,185 @@ case object ForeignLanguageCourse extends Activity {
   override val value = "foreign_language_course"
   override val kind = Teaching
   override val maxWorkload = 60L
+  override val maxWorkloadPerActivity = 60L
 }
 case object ComputerCourse extends Activity {
   override val value = "computer_course"
   override val kind = Teaching
   override val maxWorkload = 60L
+  override val maxWorkloadPerActivity = 60L
 }
 case object ComplementCourse extends Activity {
   override val value = "complement_course"
   override val kind = Teaching
   override val maxWorkload = 60L
+  override val maxWorkloadPerActivity = 60L
 }
 case object ScienceResearch extends Activity {
   override val value = "science_research"
   override val kind = Research
   override val maxWorkload = 25L
+  override val maxWorkloadPerActivity = 100L
 }
 case object ResearchProject extends Activity {
   override val value = "research_project"
   override val kind = Research
   override val maxWorkload = 20L
+  override val maxWorkloadPerActivity = 80L
 }
 case object StudyGroup extends Activity {
   override val value = "study_group"
   override val kind = Research
   override val maxWorkload = 15L
+  override val maxWorkloadPerActivity = 60L
 }
 case object UnivertyWeekPresentation extends Activity {
   override val value = "univerty_week_presentation"
   override val kind = Research
   override val maxWorkload = 8L
+  override val maxWorkloadPerActivity = 48L
 }
 case object CongressPresentation extends Activity {
   override val value = "congress_presentation"
   override val kind = Research
   override val maxWorkload = 8L
+  override val maxWorkloadPerActivity = 48L
 }
 case object AcademicAward extends Activity {
   override val value = "academic_award"
   override val kind = Research
   override val maxWorkload = 15L
+  override val maxWorkloadPerActivity = 60L
 }
 case object Publication extends Activity {
   override val value = "publication"
   override val kind = Research
   override val maxWorkload = 20L
+  override val maxWorkloadPerActivity = 80L
 }
 case object PublicationISBN extends Activity {
   override val value = "publication_isbn"
   override val kind = Research
   override val maxWorkload = 20L
+  override val maxWorkloadPerActivity = 80L
 }
 case object PublicationISBNChapter extends Activity {
   override val value = "publication_isbn_chapter"
   override val kind = Research
   override val maxWorkload = 10L
+  override val maxWorkloadPerActivity = 50L
 }
 case object PublicationBook extends Activity {
   override val value = "publication_book"
   override val kind = Research
   override val maxWorkload = 15L
+  override val maxWorkloadPerActivity = 60L
 }
 case object PublicationAbstractLocal extends Activity {
   override val value = "publication_abstract_local"
   override val kind = Research
   override val maxWorkload = 2L
+  override val maxWorkloadPerActivity = 20L
 }
 case object PublicationAbstractRegion extends Activity {
   override val value = "publication_abstract_region"
   override val kind = Research
   override val maxWorkload = 3L
+  override val maxWorkloadPerActivity = 30L
 }
 case object PublicationAbstractNation extends Activity {
   override val value = "publication_abstract_nation"
   override val kind = Research
   override val maxWorkload = 4L
+  override val maxWorkloadPerActivity = 40L
 }
 case object PublicationAbstractInternational extends Activity {
   override val value = "publication_abstract_international"
   override val kind = Research
   override val maxWorkload = 5L
+  override val maxWorkloadPerActivity = 40L
 }
 case object PublicationMagazineLocal extends Activity {
   override val value = "publication_magazine_local"
   override val kind = Research
   override val maxWorkload = 10L
+  override val maxWorkloadPerActivity = 50L
 }
 case object PublicationMagazineNation extends Activity {
   override val value = "publication_magazine_nation"
   override val kind = Research
   override val maxWorkload = 15L
+  override val maxWorkloadPerActivity = 60L
 }
 case object PublicationMagazineInternational extends Activity {
   override val value = "publication_magazine_international"
   override val kind = Research
   override val maxWorkload = 20L
+  override val maxWorkloadPerActivity = 80L
 }
 case object PublicationMagazineSpecific extends Activity {
   override val value = "publication_magazine_specific"
   override val kind = Research
   override val maxWorkload = 5L
+  override val maxWorkloadPerActivity = 20L
 }
 case object PublicationPaper extends Activity {
   override val value = "publication_paper"
   override val kind = Research
   override val maxWorkload = 5L
+  override val maxWorkloadPerActivity = 20L
 }
 case object PET extends Activity {
   override val value = "pet"
   override val kind = General
   override val maxWorkload = 25L
+  override val maxWorkloadPerActivity = 100L
 }
 case object Tutoring extends Activity {
   override val value = "tutoring"
   override val kind = General
   override val maxWorkload = 25L
+  override val maxWorkloadPerActivity = 100L
 }
 case object EventParticipation extends Activity {
   override val value = "event_participation"
   override val kind = General
   override val maxWorkload = 2L
+  override val maxWorkloadPerActivity = 40L
 }
 case object LabInternship extends Activity {
   override val value = "lab_internship"
   override val kind = General
   override val maxWorkload = 15L
+  override val maxWorkloadPerActivity = 60L
+}
+case object Internship extends Activity {
+  override val value = "internship"
+  override val kind = General
+  override val maxWorkload = 20L
+  override val maxWorkloadPerActivity = 60L
 }
 case object EventPlanning extends Activity {
   override val value = "event_planning"
   override val kind = General
   override val maxWorkload = 10L
+  override val maxWorkloadPerActivity = 40L
 }
 case object ClassPlanning extends Activity {
   override val value = "class_planning"
   override val kind = General
   override val maxWorkload = 8L
+  override val maxWorkloadPerActivity = 40L
 }
 case object SchoolParticipation extends Activity {
-  override val value = "school_participation "
+  override val value = "school_participation"
   override val kind = General
   override val maxWorkload = 15L
+  override val maxWorkloadPerActivity = 60L
 }
 case object CommunityParticipation extends Activity {
   override val value = "community_participation"
   override val kind = Extension
   override val maxWorkload = 15L
+  override val maxWorkloadPerActivity = 100L
 }
