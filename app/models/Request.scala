@@ -123,27 +123,33 @@ object Requests {
   }
 
   private def validateWorkload(request: Request): Boolean = {
-    val futureTotalWorkload = getWorkloadByActivity(request.activity) + request.workload
-    val futureSemesterWorkload = getWorkloadByActivityAndPeriod(request.activity, request.period)
+    val futureTotalWorkload = getWorkloadByActivity(request.activity, request.user) + request.workload
+    val futureSemesterWorkload = getWorkloadByActivityAndPeriod(request.activity, request.period, request.user)
 
     futureSemesterWorkload <= request.activity.maxWorkload && futureTotalWorkload <= request.activity.maxWorkloadPerActivity
   }
 
-  def getWorkloadByActivity(activity: Activity): Long = {
+  def getWorkloadByActivity(activity: Activity, user: User): Long = {
     DB.connection.withSession {
       implicit session =>
-        val hours = (for (r <- requests.filter(_.activity === activity.value)) yield (r.workload)).list.fold(0L)((i, acc) => acc + i)
+        val hours = (for (
+          r <- requests.filter { req =>
+            req.activity === activity.value &&
+              req.userEnrollment === user.enrollment
+          }
+        ) yield (r.workload)).list.fold(0L)((i, acc) => acc + i)
         hours
     }
   }
-  def getWorkloadByActivityAndPeriod(activity: Activity, period: String): Long = {
+  def getWorkloadByActivityAndPeriod(activity: Activity, period: String, user: User): Long = {
     DB.connection.withSession {
       implicit session =>
         val hours = (for (
           r <- requests.filter {
             req =>
               req.activity === activity.value &&
-                req.period === period
+                req.period === period &&
+                req.userEnrollment === user.enrollment
           }
         ) yield (r.workload)).list.fold(0L)((i, acc) => acc + i)
         hours
