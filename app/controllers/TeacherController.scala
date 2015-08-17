@@ -9,6 +9,7 @@ import models.Requests
 import java.io._
 import models._
 import play.api.libs.json._
+import scala.util.{ Failure, Success }
 
 object TeacherController extends SaacController {
 
@@ -34,10 +35,11 @@ object TeacherController extends SaacController {
 
   def evaluat(id: Long, userMapId: Long) = Authenticated {
     implicit request =>
-      if (Requests.evaluat(id)) {
-        Redirect(routes.TeacherController.view(userMapId)).flashing("message" -> "save.success", "type" -> "success")
-      } else {
-        Redirect(routes.ApplicationController.index).flashing("message" -> "save.error", "type" -> "error")
+      Requests.evaluat(id) match {
+        case Success(result) =>
+          Redirect(routes.ApplicationController.index).flashing("message" -> "save.success", "type" -> "success")
+        case Failure(exception) =>
+          Redirect(routes.ApplicationController.index).flashing("message" -> exception.getMessage, "type" -> "error")
       }
   }
 
@@ -80,10 +82,11 @@ object TeacherController extends SaacController {
           val re = Requests.get(form._1.getOrElse(0L))
           val requestUpdated = re.copy(status = Rejected, comment = re.comment + " \n" + form._2)
 
-          if (Requests.update(requestUpdated)) {
-            Redirect(routes.ApplicationController.index).flashing("message" -> "save.success", "type" -> "success")
-          } else {
-            Redirect(routes.ApplicationController.index).flashing("message" -> "save.error", "type" -> "error")
+          Requests.update(requestUpdated) match {
+            case Success(result) =>
+              Redirect(routes.ApplicationController.index).flashing("message" -> "save.success", "type" -> "success")
+            case Failure(exception) =>
+              Redirect(routes.ApplicationController.index).flashing("message" -> exception.getMessage, "type" -> "error")
           }
         })
   }

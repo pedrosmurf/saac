@@ -114,6 +114,7 @@ pet = Participação em Programa de Educação Tutorial
 tutoring = Participação em Programas de Monitoria Acadêmica
 event_participation = Participação em eventos
 lab_internship = Estágios em laboratórios de ensino e de pesquisa
+internship = Estágios
 event_planning = Participação em comissões organizadoras de eventos acadêmicos, artísticos e culturais
 class_planning = Produção de material didático com orientação de Professores
 school_participation = Participação como representante estudantil nos Colegiados
@@ -131,3 +132,10 @@ evaluated = Avaliada
 completed = Finalizada
 canceled = Cancelada
 submitted = Submetida
+
+
+#Failure
+
+unknown.reason = Erro desconhecido
+total.hours.reason = Número máximo de horas nessa atividade excedido
+semester.hours.reason = Número máximo de horas semestrais nessa atividade excedido

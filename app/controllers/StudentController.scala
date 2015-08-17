@@ -9,6 +9,7 @@ import models.Requests
 import java.io._
 import models._
 import play.api.libs.json._
+import scala.util.{ Failure, Success }
 
 object StudentController extends SaacController {
 
@@ -100,12 +101,14 @@ object StudentController extends SaacController {
               filename,
               "")
 
-            if (Requests.create(re)) {
-              val file = new File(s"files/$userEnrollment/$filename")
-              document.ref.moveTo(file)
-              Redirect(routes.ApplicationController.index).flashing("message" -> "save.success", "type" -> "success")
-            } else {
-              Redirect(routes.ApplicationController.index).flashing("message" -> "save.error", "type" -> "error")
+            Requests.create(re) match {
+
+              case Success(result) =>
+                val file = new File(s"files/$userEnrollment/$filename")
+                document.ref.moveTo(file)
+                Redirect(routes.ApplicationController.index).flashing("message" -> "save.success", "type" -> "success")
+              case Failure(exception) =>
+                Redirect(routes.ApplicationController.index).flashing("message" -> exception.getMessage, "type" -> "error")
             }
           }.getOrElse {
             val kinds = List(Teaching, Research, General, Extension, Sport, Cultural)
@@ -136,12 +139,13 @@ object StudentController extends SaacController {
               workload = form._8,
               document = filename)
 
-            if (Requests.update(requestUpdated)) {
-              val file = new File(s"files/$userEnrollment/$filename")
-              document.ref.moveTo(file)
-              Redirect(routes.ApplicationController.index).flashing("message" -> "save.success", "type" -> "success")
-            } else {
-              Redirect(routes.ApplicationController.index).flashing("message" -> "save.error", "type" -> "error")
+            Requests.update(requestUpdated) match {
+              case Success(result) =>
+                val file = new File(s"files/$userEnrollment/$filename")
+                document.ref.moveTo(file)
+                Redirect(routes.ApplicationController.index).flashing("message" -> "save.success", "type" -> "success")
+              case Failure(exception) =>
+                Redirect(routes.ApplicationController.index).flashing("message" -> exception.getMessage, "type" -> "error")
             }
           }.getOrElse {
             val requestUpdated = re.copy(
@@ -153,10 +157,11 @@ object StudentController extends SaacController {
               period = form._7,
               workload = form._8)
 
-            if (Requests.update(requestUpdated)) {
-              Redirect(routes.ApplicationController.index).flashing("message" -> "save.success", "type" -> "success")
-            } else {
-              Redirect(routes.ApplicationController.index).flashing("message" -> "save.error", "type" -> "error")
+            Requests.update(requestUpdated) match {
+              case Success(result) =>
+                Redirect(routes.ApplicationController.index).flashing("message" -> "save.success", "type" -> "success")
+              case Failure(exception) =>
+                Redirect(routes.ApplicationController.index).flashing("message" -> exception.getMessage, "type" -> "error")
             }
           }
         })
@@ -173,19 +178,21 @@ object StudentController extends SaacController {
 
   def complet(id: Long) = Authenticated {
     implicit request =>
-      if (Requests.complet(id)) {
-        Redirect(routes.ApplicationController.index).flashing("message" -> "save.success", "type" -> "success")
-      } else {
-        Redirect(routes.ApplicationController.index).flashing("message" -> "save.error", "type" -> "error")
+      Requests.complet(id) match {
+        case Success(result) =>
+          Redirect(routes.ApplicationController.index).flashing("message" -> "save.success", "type" -> "success")
+        case Failure(exception) =>
+          Redirect(routes.ApplicationController.index).flashing("message" -> exception.getMessage, "type" -> "error")
       }
   }
 
   def correct(id: Long) = Authenticated {
     implicit request =>
-      if (Requests.correct(id)) {
-        Redirect(routes.ApplicationController.index).flashing("message" -> "save.success", "type" -> "success")
-      } else {
-        Redirect(routes.ApplicationController.index).flashing("message" -> "save.error", "type" -> "error")
+      Requests.correct(id) match {
+        case Success(result) =>
+          Redirect(routes.ApplicationController.index).flashing("message" -> "save.success", "type" -> "success")
+        case Failure(exception) =>
+          Redirect(routes.ApplicationController.index).flashing("message" -> exception.getMessage, "type" -> "error")
       }
   }
 

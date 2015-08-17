@@ -3,6 +3,7 @@ package models
 import scala.slick._
 import scala.slick.driver.PostgresDriver.simple._
 import scala.slick.lifted.{ ProvenShape, ForeignKeyQuery }
+import scala.util.{ Try, Success, Failure }
 
 case class Request(
   id: Option[Long],
@@ -87,46 +88,51 @@ object Requests {
     }
   }
 
-  def create(request: Request): Boolean = {
+  def create(request: Request): Try[Request] = {
     DB.connection.withSession {
       implicit session =>
-        val createdRequest = toTable(request).copy(status = Created.value)
-        if (validateWorkload(request)) {
-          requests.+=(createdRequest) match {
+        val createdRequest = request.copy(status = Created)
+        val createdRequestTable = toTable(createdRequest)
+        validateWorkload(createdRequest) flatMap { valid =>
+          requests.+=(createdRequestTable) match {
             case 1 =>
-              UserMaps.updateWorkload(createdRequest.userMapId)
-              true
-            case _ => false
+              UserMaps.updateWorkload(createdRequestTable.userMapId)
+              Success(createdRequest)
+            case _ => Failure(SaacException(UnknownReason))
           }
-        } else {
-          false
         }
     }
   }
 
-  def update(request: Request): Boolean = {
+  def update(request: Request): Try[Request] = {
     DB.connection.withSession {
       implicit session =>
         val updateRequest = toTable(request)
-        if (validateWorkload(request)) {
+        validateWorkload(request) flatMap { valid =>
           val query = for (r <- requests.filter(_.id === updateRequest.id)) yield (r)
           query.update(updateRequest) match {
             case 1 =>
               UserMaps.updateWorkload(updateRequest.userMapId)
-              true
-            case _ => false
+              Success(request)
+            case _ => Failure(SaacException(UnknownReason))
           }
-        } else {
-          false
         }
     }
   }
 
-  private def validateWorkload(request: Request): Boolean = {
+  private def validateWorkload(request: Request): Try[Boolean] = {
     val futureTotalWorkload = getWorkloadByActivity(request.activity, request.user) + request.workload
     val futureSemesterWorkload = getWorkloadByActivityAndPeriod(request.activity, request.period, request.user)
 
-    futureSemesterWorkload <= request.activity.maxWorkload && futureTotalWorkload <= request.activity.maxWorkloadPerActivity
+    if (futureSemesterWorkload <= request.activity.maxWorkload) {
+      if (futureTotalWorkload <= request.activity.maxWorkloadPerActivity) {
+        Success(true)
+      } else {
+        Failure(SaacException(TotalHoursReason, List(request.activity.maxWorkloadPerActivity.toString)))
+      }
+    } else {
+      Failure(SaacException(SemesterHoursReason, List(request.activity.maxWorkload.toString)))
+    }
   }
 
   def getWorkloadByActivity(activity: Activity, user: User): Long = {
@@ -186,7 +192,7 @@ object Requests {
         query.map(_.toEntity)
     }
   }
-
+  //TODO colocar try
   def get(id: Long): Request = {
     DB.connection.withSession {
       implicit session =>
@@ -207,7 +213,7 @@ object Requests {
     }
   }
 
-  def submit(id: Long): Boolean = {
+  def submit(id: Long): Try[Request] = {
     DB.connection.withSession {
       implicit session =>
         val req = Requests.get(id)
@@ -216,7 +222,7 @@ object Requests {
     }
   }
 
-  def complet(id: Long): Boolean = {
+  def complet(id: Long): Try[Request] = {
     DB.connection.withSession {
       implicit session =>
         val req = Requests.get(id)
@@ -225,7 +231,7 @@ object Requests {
     }
   }
 
-  def correct(id: Long): Boolean = {
+  def correct(id: Long): Try[Request] = {
     DB.connection.withSession {
       implicit session =>
         val req = Requests.get(id)
@@ -234,16 +240,16 @@ object Requests {
     }
   }
 
-  def evaluat(id: Long): Boolean = {
+  def evaluat(id: Long): Try[Request] = {
     DB.connection.withSession {
       implicit session =>
         val req = Requests.get(id)
         val requestUpdated = req.copy(status = Evaluated, validWorkload = req.workload)
         Requests.update(requestUpdated) match {
-          case false => false
-          case true =>
+          case f @ Failure(exception) => f
+          case s @ Success(request) =>
             UserMaps.updateValidWorkload(toTable(requestUpdated).userMapId)
-            true
+            s
         }
     }
   }
