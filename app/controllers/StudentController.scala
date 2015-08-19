@@ -10,6 +10,7 @@ import java.io._
 import models._
 import play.api.libs.json._
 import scala.util.{ Failure, Success }
+import play.utils.UriEncoding
 
 object StudentController extends SaacController {
 
@@ -83,7 +84,7 @@ object StudentController extends SaacController {
         form => {
           request.body.file("document").map { document =>
 
-            val filename = document.filename
+            val filename = UriEncoding.encodePathSegment(document.filename, "UTF-8")
             val userEnrollment: String = request.session("User")
 
             val re = models.Request(
