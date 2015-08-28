@@ -2,9 +2,10 @@ body {
 	background-color: #f0f0f0 !important;
 }
 
-.ueceBlue{
-	background-color:#231e5e!important;
+.ueceBlue {
+	background-color: #231e5e !important;
 }
+
 .loginForm {
 	margin-top: 20% !important;
 }
@@ -23,28 +24,28 @@ body {
 	margin: 40px 0px;
 }
 
-.flashMessage{
-	margin-top:40px;
+.flashMessage {
+	margin-top: 40px;
 }
 
 .menu {
 	margin-left: 20px;
-	padding:0px!important;
+	padding: 0px !important;
 }
 
 a.menuItem:link {
-    text-decoration: none;
-    color:#231e5e;
+	text-decoration: none;
+	color: #231e5e;
 }
 
 a.menuItem:visited {
-    text-decoration: none;
-    color:#231e5e;
+	text-decoration: none;
+	color: #231e5e;
 }
 
 a.menuItem:hover {
-    text-decoration: none;
-    color:#231e5e;
+	text-decoration: none;
+	color: #231e5e;
 }
 
 a.menuItem {
@@ -53,95 +54,112 @@ a.menuItem {
 	width: 100%;
 	text-align: center;
 	padding: 10px 0px;
-	color:#231e5e;
+	color: #231e5e;
 }
 
-
-a.active{
+a.active {
 	background-color: #231e5e;
-	color: #fff!important;
-	margin-left:5px;
+	color: #fff !important;
+	margin-left: 5px;
 	box-shadow: 4px 4px 2px #888888;
 }
 
 a.not-active {
-   pointer-events: none;
-   cursor: default;
-   color: #cfcfcf;
+	pointer-events: none;
+	cursor: default;
+	color: #cfcfcf;
 }
 
 [data-tooltip] {
-  position: relative;
-  z-index: 2;
-  cursor: pointer;
+	position: relative;
+	z-index: 2;
+	cursor: pointer;
 }
 
-[data-tooltip]:before,
-[data-tooltip]:after {
-  visibility: hidden;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-  filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
-  opacity: 0;
-  pointer-events: none;
+[data-tooltip]:before, [data-tooltip]:after {
+	visibility: hidden;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+	opacity: 0;
+	pointer-events: none;
 }
 
 /* Position tooltip above the element */
 [data-tooltip]:before {
-  position: absolute;
-  bottom: 150%;
-  left: 50%;
-  margin-bottom: 5px;
-  margin-left: -80px;
-  padding: 7px;
-  width: 160px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  background-color: #000;
-  background-color: hsla(0, 0%, 20%, 0.9);
-  color: #fff;
-  content: attr(data-tooltip);
-  text-align: center;
-  font-size: 14px;
-  line-height: 1.2;
+	position: absolute;
+	bottom: 150%;
+	left: 50%;
+	margin-bottom: 5px;
+	margin-left: -80px;
+	padding: 7px;
+	width: 160px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	background-color: #000;
+	background-color: hsla(0, 0%, 20%, 0.9);
+	color: #fff;
+	content: attr(data-tooltip);
+	text-align: center;
+	font-size: 14px;
+	line-height: 1.2;
 }
 
 /* Triangle hack to make tooltip look like a speech bubble */
 [data-tooltip]:after {
-  position: absolute;
-  bottom: 150%;
-  left: 50%;
-  margin-left: -5px;
-  width: 0;
-  border-top: 5px solid #000;
-  border-top: 5px solid hsla(0, 0%, 20%, 0.9);
-  border-right: 5px solid transparent;
-  border-left: 5px solid transparent;
-  content: " ";
-  font-size: 0;
-  line-height: 0;
+	position: absolute;
+	bottom: 150%;
+	left: 50%;
+	margin-left: -5px;
+	width: 0;
+	border-top: 5px solid #000;
+	border-top: 5px solid hsla(0, 0%, 20%, 0.9);
+	border-right: 5px solid transparent;
+	border-left: 5px solid transparent;
+	content: " ";
+	font-size: 0;
+	line-height: 0;
 }
 
 /* Show tooltip content on hover */
-[data-tooltip]:hover:before,
-[data-tooltip]:hover:after {
-  visibility: visible;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-  filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
-  opacity: 1;
+[data-tooltip]:hover:before, [data-tooltip]:hover:after {
+	visibility: visible;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+	opacity: 1;
 }
 
-.headTitle{
+.headTitle {
 	text-transform: uppercase;
 	font-weight: 700;
-    font-size: 40px;
-    letter-spacing: 5px;
-    text-shadow: 2px 2px #cfcfcf;
-    color:#231e5e;
+	font-size: 40px;
+	letter-spacing: 5px;
+	text-shadow: 2px 2px #cfcfcf;
+	color: #231e5e;
 }
 
 .imageUece {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.report {
+	padding: 10px;
+	background-color: #ffffff !important;
+}
+
+.reportTitle {
+	padding: 10px;
+	border: 1px solid #000000;
+}
+
+.reportTitleText {
+	font-size: 12px !important;
+	width: 700px !important;
+	display: inline-block; !important;
+}
+
+.reportTitleImg {
+	display: inline-block; !important;
 }

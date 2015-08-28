@@ -30,7 +30,7 @@ save.success = Salvo com sucesso
 save.error = Erro ao salvar
 remove.success = Removido com sucesso
 required.field = Campo obrigatório
-
+computer.science = Ciências da Computação
 
 #Helpers
 
@@ -139,3 +139,39 @@ submitted = Submetida
 unknown.reason = Erro desconhecido
 total.hours.reason = Número máximo de horas nessa atividade excedido
 semester.hours.reason = Número máximo de horas semestrais nessa atividade excedido
+
+#Report
+
+report.title.one = UNIVERSIDADE ESTADUAL DO CEARÁ - UECE
+report.title.two = PRÓ-REITORIA DE GRADUAÇÃO - PROGRAD
+report.title.three = CÉLULA TÉCNICO-PEDAGÓGICA – CTP  /  NÚCLEO DE ESTÁGIO CURRICULAR E ATIVIDADES COMPLEMENTARES
+report.sub.title = QUADRO DE ATIVIDADES COMPLEMENTARES
+report.center = CENTRO/FACULDADE: 
+report.course =  CURSO: 
+report.student.name = ALUNO(A): 
+report.enrollment = MATRíCULA: 
+report.start = INGRESSO - 
+report.start.period = PERÍODO: 
+report.start.way = FORMA: 
+report.kind.activity = Natureza da Atividade
+report.doc.order = Ordem do documento
+report.event.name = Nome do Evento
+report.activity.description = Descrição da Atividade
+report.participation.kind = Tipo de Participação
+report.institution = Instituição
+report.period = Período
+report.workload = Carga Horária da Atividade
+report.valid.workload = Carga Horária Aproveitada
+
+report.Teaching = (A) Acadêmica: Ensino
+hours.kind.Teaching = Horas por natureza (A)
+report.Research = (B) Acadêmica: Pesquisa e Produção Científica
+hours.kind.Research = Horas por natureza (B)
+report.General = (C) Acadêmica: Geral
+hours.kind.General = Horas por natureza (C)
+report.Extension = (D) Acadêmica: Extensão
+hours.kind.Extension = Horas por natureza (D)
+report.Sport = (E) Acadêmica: Esportiva
+hours.kind.Sport = Horas por natureza (E)
+report.Cultural = (F) Acadêmica: Cultural
+hours.kind.Cultural = Horas por natureza (F)

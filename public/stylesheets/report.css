@@ -1,0 +1,68 @@
+.report {
+	padding: 10px;
+}
+
+.reportTitle {
+	padding: 10px;
+	border: 1px solid #000000;
+	margin: 0px !important;
+}
+
+.reportTitleText {
+	font-size: 12px !important;
+}
+
+.reportTitleImg {
+	
+}
+
+.reportSubTitle {
+	margin-top: 20px;
+	text-align: center;
+}
+
+.reportStudentDetails {
+	border: 1px solid #000000;
+	margin: 0px !important;
+}
+
+.reportStudentDetailsText {
+	border: 1px solid #000000;
+}
+
+.noP {
+	padding: 0px !important;
+}
+
+.reportRequestList {
+	border: 1px solid #000000;
+	margin: 20px 0px !important;
+}
+
+.reportRequestListHeader {
+	margin: 0px !important;
+}
+
+.reportRequestListHeaderItem {
+	text-align: center;
+	display: inline-block;
+	border: 1px solid #000000;
+}
+
+.grayBackground {
+	background-color: #f0f0f0;
+	border-right: 1px solid #000000;
+	border-left: 1px solid #000000; 
+}
+
+.row-height-1 {
+	height: 22px !important;
+}
+
+.row-height-2 {
+	height: 42px !important;
+}
+
+.row-height-3 {
+	height: 60px !important;
+}

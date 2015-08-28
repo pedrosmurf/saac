@@ -5,26 +5,26 @@ import scala.slick.driver.PostgresDriver.simple._
 import scala.slick.lifted.{ ProvenShape, ForeignKeyQuery }
 
 case class UserMap(
-  id: Option[Long],
-  user: User,
-  active: Boolean,
-  requests: List[Request],
-  workload: Long,
-  validWorkload: Long,
-  status: UserMapStatus)
-
+    id: Option[Long],
+    user: User,
+    active: Boolean,
+    requests: List[Request],
+    workload: Long,
+    validWorkload: Long,
+    status: UserMapStatus)
+    
 object UserMap {
   val creditToSubmit = 12
   val hourToCredit = 17
 }
 
 case class UserMapTable(
-  id: Option[Long],
-  userEnrollment: String,
-  active: Boolean,
-  workload: Long,
-  validWorkload: Long,
-  status: String) {
+    id: Option[Long],
+    userEnrollment: String,
+    active: Boolean,
+    workload: Long,
+    validWorkload: Long,
+    status: String) {
 
   def toEntity = {
 
