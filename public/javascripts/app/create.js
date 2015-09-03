@@ -21,6 +21,10 @@ jQuery("#kind").change(function(){
 	})
 })
 
+jQuery("#activity").change(function(){
+	validateWorkload()
+})
+
 function addActivities(activities){
 	jQuery("#activity").empty()
 	jQuery.each(activities, function(index,activity){

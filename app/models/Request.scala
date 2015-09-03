@@ -120,6 +120,20 @@ object Requests {
     }
   }
 
+  def changeStatus(request: Request): Try[Request] = {
+    DB.connection.withSession {
+      implicit session =>
+        val updateRequest = toTable(request)
+        val query = for (r <- requests.filter(_.id === updateRequest.id)) yield (r)
+        query.update(updateRequest) match {
+          case 1 =>
+            UserMaps.updateWorkload(updateRequest.userMapId)
+            Success(request)
+          case _ => Failure(SaacException(UnknownReason))
+        }
+    }
+  }
+
   private def validateWorkload(request: Request): Try[Boolean] = {
     val futureTotalWorkload = getWorkloadByActivity(request.activity, request.user) + request.workload
     val futureSemesterWorkload = getWorkloadByActivityAndPeriod(request.activity, request.period, request.user)
@@ -218,7 +232,7 @@ object Requests {
       implicit session =>
         val req = Requests.get(id)
         val requestUpdated = req.copy(status = Submitted)
-        Requests.update(requestUpdated)
+        Requests.changeStatus(requestUpdated)
     }
   }
 
@@ -227,7 +241,7 @@ object Requests {
       implicit session =>
         val req = Requests.get(id)
         val requestUpdated = req.copy(status = Completed)
-        Requests.update(requestUpdated)
+        Requests.changeStatus(requestUpdated)
     }
   }
 
@@ -236,7 +250,7 @@ object Requests {
       implicit session =>
         val req = Requests.get(id)
         val requestUpdated = req.copy(status = Corrected)
-        Requests.update(requestUpdated)
+        Requests.changeStatus(requestUpdated)
     }
   }
 
@@ -245,7 +259,7 @@ object Requests {
       implicit session =>
         val req = Requests.get(id)
         val requestUpdated = req.copy(status = Evaluated, validWorkload = req.workload)
-        Requests.update(requestUpdated) match {
+        Requests.changeStatus(requestUpdated) match {
           case f @ Failure(exception) => f
           case s @ Success(request) =>
             UserMaps.updateValidWorkload(toTable(requestUpdated).userMapId)

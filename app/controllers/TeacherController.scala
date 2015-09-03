@@ -37,7 +37,7 @@ object TeacherController extends SaacController {
     implicit request =>
       Requests.evaluat(id) match {
         case Success(result) =>
-          Redirect(routes.ApplicationController.index).flashing("message" -> "save.success", "type" -> "success")
+          Redirect(routes.TeacherController.view(userMapId)).flashing("message" -> "save.success", "type" -> "success")
         case Failure(exception) =>
           Redirect(routes.ApplicationController.index).flashing("message" -> exception.getMessage, "type" -> "error")
       }
