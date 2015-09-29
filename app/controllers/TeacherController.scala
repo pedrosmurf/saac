@@ -80,9 +80,9 @@ object TeacherController extends SaacController {
           val userEnrollment: String = request.session("User")
 
           val re = Requests.get(form._1.getOrElse(0L))
-          val requestUpdated = re.copy(status = Rejected, comment = re.comment + " \n" + form._2)
+          val requestUpdated = re.copy(comment = re.comment + " \n" + form._2)
 
-          Requests.update(requestUpdated) match {
+          Requests.update(requestUpdated).flatMap { result => Requests.changeStatus(result.copy(status = Rejected)) } match {
             case Success(result) =>
               Redirect(routes.ApplicationController.index).flashing("message" -> "save.success", "type" -> "success")
             case Failure(exception) =>
