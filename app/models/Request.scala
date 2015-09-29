@@ -108,7 +108,7 @@ object Requests {
     DB.connection.withSession {
       implicit session =>
         val updateRequest = toTable(request)
-        validateWorkload(request) flatMap { valid =>
+        validateUpdateWorkload(request) flatMap { valid =>
           val query = for (r <- requests.filter(_.id === updateRequest.id)) yield (r)
           query.update(updateRequest) match {
             case 1 =>
@@ -136,7 +136,22 @@ object Requests {
 
   private def validateWorkload(request: Request): Try[Boolean] = {
     val futureTotalWorkload = getWorkloadByActivity(request.activity, request.user) + request.workload
-    val futureSemesterWorkload = getWorkloadByActivityAndPeriod(request.activity, request.period, request.user)
+    val futureSemesterWorkload = getWorkloadByActivityAndPeriod(request.activity, request.period, request.user) //TODO Somar o workload do request
+
+    if (futureSemesterWorkload <= request.activity.maxWorkload) {
+      if (futureTotalWorkload <= request.activity.maxWorkloadPerActivity) {
+        Success(true)
+      } else {
+        Failure(SaacException(TotalHoursReason, List(request.activity.maxWorkloadPerActivity.toString)))
+      }
+    } else {
+      Failure(SaacException(SemesterHoursReason, List(request.activity.maxWorkload.toString)))
+    }
+  }
+
+  private def validateUpdateWorkload(request: Request): Try[Boolean] = {
+    val futureTotalWorkload = getWorkloadByActivity(request.activity, request.user) + request.workload - get(request.id.getOrElse(0L)).workload
+    val futureSemesterWorkload = getWorkloadByActivityAndPeriod(request.activity, request.period, request.user) //TODO Somar o workload do request e subtrair do ja salvo
 
     if (futureSemesterWorkload <= request.activity.maxWorkload) {
       if (futureTotalWorkload <= request.activity.maxWorkloadPerActivity) {
